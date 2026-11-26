@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl"><head><meta charset="UTF-8"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data: blob:; media-src blob: mediastream:; connect-src https:; base-uri 'none'; form-action 'none'; object-src 'none'"><meta name="referrer" content="no-referrer"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#07090f"><meta name="description" content="أدوات فحص الجهاز والخصوصية تعمل داخل متصفحك: فحص الجهاز والشبكة وكلمات السر وأدوات نصوص وتشفير وحاسبات."><meta name="robots" content="index,follow"><meta property="og:type" content="website"><meta property="og:title" content="أدوات فحص الجهاز والخصوصية"><meta property="og:description" content="أدوات فحص الجهاز والشبكة وكلمات السر وأدوات نصوص وتشفير وحاسبات، تعمل داخل متصفحك."><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%9B%A1%3C/text%3E%3C/svg%3E"><title>أدوات فحص الجهاز والخصوصية</title>
+<style>
+:root{--g:#d4af37;--g2:#f3d98b;--t:#eef1f7;--m:#8b93a7;--s:rgba(255,255,255,.045);--b:rgba(212,175,55,.22);--ok:#3fd17f;--warn:#f0a35e;--bad:#ff5d5d}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html{scroll-behavior:smooth}
+body{margin:0;min-height:100vh;color:var(--t);line-height:1.7;font-family:"Segoe UI",Tahoma,"Noto Sans Arabic",Arial,sans-serif;background:radial-gradient(900px 500px at 85% -10%,rgba(212,175,55,.13),transparent 60%),radial-gradient(800px 500px at -10% 110%,rgba(90,110,210,.13),transparent 55%),#07090f;background-attachment:fixed}
+.w{max-width:820px;margin:0 auto;padding:18px 16px 40px}
+h1{font-size:25px;margin:6px 0 10px;font-weight:700;letter-spacing:.3px;background:linear-gradient(90deg,var(--g2),var(--g));-webkit-background-clip:text;background-clip:text;color:transparent}
+h2{font-size:17px;margin:0 0 10px;color:var(--g2);font-weight:600}
+.brand{font-size:11px;letter-spacing:3px;color:var(--g);opacity:.8;margin-top:6px;direction:ltr;text-align:right}
+.c{background:var(--s);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border:1px solid var(--b);border-radius:18px;padding:15px;margin:12px 0;box-shadow:0 12px 34px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.05)}
+.m{color:var(--m);font-size:13px}
+button{background:linear-gradient(135deg,var(--g2),var(--g));color:#1a1405;border:0;border-radius:12px;padding:10px 18px;font-size:14px;font-weight:700;margin:4px 2px;cursor:pointer;transition:transform .15s,box-shadow .25s,filter .2s;box-shadow:0 5px 16px rgba(212,175,55,.25)}
+button:hover{filter:brightness(1.06)}button:active{transform:scale(.97)}
+button.s{background:rgba(255,255,255,.07);color:var(--t);box-shadow:none;border:1px solid var(--b);font-weight:600}
+button:disabled{opacity:.45;box-shadow:none;cursor:not-allowed}
+input[type=text],input[type=password],input[type=email],textarea{width:100%;padding:10px 12px;border-radius:12px;border:1px solid var(--b);background:rgba(0,0,0,.35);color:var(--t);margin:5px 0;direction:ltr;text-align:left;font-size:14px;outline:0;transition:border-color .2s,box-shadow .2s}
+input:focus,textarea:focus,select:focus{border-color:var(--g)!important;box-shadow:0 0 0 3px rgba(212,175,55,.15)}
+select{color:var(--t)!important;border-radius:12px!important}
+.g{display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:10px}
+.g button{background:var(--s);color:var(--t);border:1px solid var(--b);padding:14px 6px;font-size:12.5px;font-weight:600;box-shadow:none;border-radius:15px;transition:transform .2s,border-color .2s,background .2s;margin:0}
+.g button:hover{transform:translateY(-2px);border-color:var(--g);background:rgba(212,175,55,.09)}
+.g b{display:block;font-size:26px;margin-bottom:2px}
+.r{display:flex;justify-content:space-between;gap:12px;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:14px}.r:last-child{border:0}
+.r span:last-child{direction:ltr;text-align:left;overflow-wrap:anywhere;color:#dfe6f7}
+.ok{color:var(--ok)!important}.warn{color:var(--warn)!important}.bad{color:var(--bad)!important}
+.h{display:none!important}
+.scr{animation:up .65s cubic-bezier(.2,.7,.2,1) both}
+@keyframes up{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes fd{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes sh{to{background-position:-200% 0}}
+@keyframes gl{50%{filter:drop-shadow(0 0 28px rgba(212,175,55,.75))}}
+label.o{display:flex;gap:10px;padding:7px 0;font-size:14px;align-items:center}
+input[type=checkbox]{accent-color:var(--g);width:18px;height:18px;flex:none}input[type=range]{accent-color:var(--g)}
+.logo{font-size:60px;filter:drop-shadow(0 0 16px rgba(212,175,55,.5));animation:gl 2.4s ease-in-out infinite}
+.lbl{font-size:18px;color:var(--g2);min-height:32px;margin:6px 0 14px}.fd{animation:fd .5s both}
+.pbar{height:12px;border-radius:99px;background:rgba(255,255,255,.07);overflow:hidden;border:1px solid var(--b);max-width:420px;margin:0 auto}
+.pbar i{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--g),var(--g2),var(--g));background-size:200% 100%;animation:sh 1.6s linear infinite;transition:width .7s cubic-bezier(.4,0,.2,1)}
+#pct{margin:8px 0 14px;font-size:13px;color:var(--m);letter-spacing:1px}
+.sg{display:grid;grid-template-columns:1fr 1fr;gap:8px}.sb{background:rgba(0,0,0,.28);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:8px 10px}.sb small{display:block;color:var(--m);font-size:11.5px}.sb b{color:var(--g2);font-size:14px;overflow-wrap:anywhere;unicode-bidi:plaintext;display:block}
+#pad{height:180px;background:#0a0d16;border:1px dashed rgba(212,175,55,.3);border-radius:14px;touch-action:none;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px;font-size:13px}
+.lv{height:14px;background:rgba(255,255,255,.07);border-radius:7px;overflow:hidden;margin:8px 0}.lv i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--g),var(--ok))}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--g);outline-offset:2px}
+</style></head><body><noscript><p style="padding:20px;color:#f3d98b;text-align:center">الموقع يحتاج تفعيل JavaScript ليعمل.</p></noscript><div class="w">
+
+<div id="wn" class="scr" style="padding-top:5vh"><h1 style="text-align:center">⛔ تحذير نهائي</h1>
+<div class="c" style="border:1px solid rgba(255,93,93,.6)"><p><b class="warn">🧪 نسخة تجريبية:</b> هذا الموقع ما زال تحت الاختبار ويتم تعديله وتطويره باستمرار.</p>
+<p><b class="bad">⚖ الفكرة والتصميم والكود ملك حصري لصاحبه.</b> يُحظر نسخ الملف أو أي جزء منه، أو سرقة الفكرة، أو إعادة نشره أو بيعه أو تعديله ونسبته لغير صاحبه، دون إذن كتابي مسبق.</p>
+<p><b class="bad">🚨 المخالف سيتعرض لما يلي:</b><br>• تقديم بلاغ إزالة لدى الاستضافة (GitHub) وحذف النسخة المسروقة.<br>• رفع دعوى مدنية للمطالبة بتعويض عن الأضرار.<br>• تقديم بلاغ جنائي بانتهاك حقوق الملكية الفكرية لدى الجهات المختصة.<br>• تحمّل المخالف كامل الرسوم والمصاريف القضائية.</p>
+<p><b>لن يتم التهاون مع أي انتهاك، ولا إنذار قبل اتخاذ الإجراءات القانونية.</b></p>
+<p class="m">© 2026 ZilusX — جميع الحقوق محفوظة.</p>
+<button id="wb">قرأت التحذير وألتزم به، متابعة</button></div></div>
+
+<div id="cs" class="h" style="padding-top:5vh"><h1 style="text-align:center">🛡 تحليل الجهاز والخصوصية</h1>
+<div class="c"><h2>قبل ما نبدأ</h2>
+<p>هنعمل تحليل حقيقي لجهازك ومتصفحك (المعالج، الذاكرة، كرت الشاشة، الشاشة، الأداء، الاتصال، البطارية، التخزين، الصلاحيات، الخصوصية) وبعدها تدخل على الأدوات.</p>
+<ul class="m"><li>كل الفحوصات بتتم على جهازك والنتائج بتتعرض عندك بس، ومش بنخزنها ولا بنبعتها لأي سيرفر تابع لنا.</li>
+<li>التحليل الأولي بيتصل بـ Cloudflare بس (قياس Ping)، وباقي الخدمات بتتصل لما تشغّل أداتها بنفسك: Cloudflare (السرعة وDNS)، وipwho.is (عنوان IP والدولة)، وHave I Been Pwned (بتتبعت أول 5 حروف من بصمة SHA-1 بس، مش كلمة السر)، وGoogle STUN (اختبار WebRTC)، وأي رابط تكتبه بنفسك في أداة اختبار الوصول.</li>
+<li>الباقة وعدّاد العمليات (وخزنة Golden المشفّرة لو فعّلتها) بتتخزن داخل متصفحك فقط، ومش بتتبعت لأي مكان.</li>
+<li>التحليل ده مش بيطلب صلاحيات حساسة (موقع/كاميرا/مايك). دي بتتطلب بس لما تضغط عليها بنفسك من الأدوات.</li>
+<li>صفحة ويب مش بتقدر تفحص الفيروسات أو برامج التجسس (حد أمني في المتصفحات)، فمش بندّعي إننا بنفحصها.</li></ul>
+<label class="o"><input type="checkbox" id="ag"><span>أوافق على تحليل جهازي ومتصفحي، وعلى اتصال واحد بـ Cloudflare لقياس Ping، وعرض النتائج داخل هذه الصفحة.</span></label>
+<button id="st" disabled>ابدأ التحليل</button></div></div>
+
+<div id="sc" class="h" style="text-align:center;padding-top:8vh"><div class="logo">🛡</div><h1>جاري تحليل جهازك</h1>
+<div class="lbl" id="lbl" aria-live="polite">...</div><div class="pbar"><i id="pb"></i></div><div id="pct">0%</div>
+<div class="c" id="slog" style="text-align:right;min-height:60px"></div></div>
+
+<div id="ap" class="h"><div class="brand">ZILUS · DEVICE &amp; PRIVACY SUITE</div><h1>أدوات الجهاز والخصوصية</h1>
+<div id="hm"><div id="dash"></div><p class="m">اختار أداة:</p><div class="g" id="gd"></div><p class="m" style="margin-top:14px">كل الفحوصات بتتم داخل متصفحك.</p></div>
+<div id="v"></div></div>
+<p class="m" style="text-align:center;margin-top:18px"><a href="about.html" style="color:#e8c766">من نحن</a> · <a href="privacy.html" style="color:#e8c766">سياسة الخصوصية</a> · <a href="terms.html" style="color:#e8c766">شروط الاستخدام</a></p>
+</div>
+
+<script>
+/* حماية من التضمين داخل إطار (Clickjacking) */
+if(top!==self){try{top.location=self.location}catch(e){}try{document.documentElement.remove()}catch(e){}}
+/* مهلة افتراضية للطلبات الخارجية حتى لا تتعلّق الواجهة */
+{const _f=window.fetch.bind(window);window.fetch=(u,o={})=>{if(o.signal)return _f(u,o);const c=new AbortController(),t=setTimeout(()=>c.abort(),20000);return _f(u,{...o,signal:c.signal}).finally(()=>clearTimeout(t))}}
+/* اختيار عشوائي بدون تحيّز (rejection sampling) */
+const RND=n=>{n=Math.floor(n);if(!(n>=1&&n<=4294967296))throw Error('مدى غير صالح');if(n==1)return 0;const m=4294967296-(4294967296%n),b=new Uint32Array(1);let x;do{crypto.getRandomValues(b);x=b[0]}while(x>=m);return x%n};
+const $=(s,e=document)=>e.querySelector(s),esc=s=>String(s).replace(/[&<>"'`]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;','`':'&#96;'}[c])),R={},cl=[];
+const row=(k,v,c='')=>`<div class=r><span>${esc(k)}</span><span class="${c}">${esc(v)}</span></div>`,yn=v=>v?'نعم':'لا';
+const sha=async(a,s)=>[...new Uint8Array(await crypto.subtle.digest(a,new TextEncoder().encode(s)))].map(x=>x.toString(16).padStart(2,'0')).join('');
+const sleep=ms=>new Promise(r=>setTimeout(r,ms)),cores=n=>!n?'؟':n==1?'نواة واحدة':n==2?'نواتان':n+(n<=10?' أنوية':' نواة'),gn=s=>{const p=String(s).replace(/^ANGLE \(|\)$/g,'').split(', ');return(p.length>1?p[1]:p[0]).slice(0,30)};
+
+/* التنقل بين الشاشات */
+const show=id=>['wn','cs','sc','ap'].forEach(x=>{const e=$('#'+x);e.classList.toggle('h',x!=id);if(x==id){e.classList.remove('scr');void e.offsetWidth;e.classList.add('scr');scrollTo(0,0)}});
+$('#wb').onclick=()=>show('cs');
+$('#ag').onchange=e=>$('#st').disabled=!e.target.checked;
+$('#st').onclick=()=>{show('sc');runScan()};
+
+/* التحليل الحقيقي: كل خطوة بتقرا/بتقيس فعلياً من الجهاز */
+const STEPS=[
+['cpu','التحقق من نوع المعالج',async()=>{const n=navigator;let h={};try{h=await n.userAgentData.getHighEntropyValues(['architecture','bitness','model','platformVersion'])}catch(e){}const d={'الأنوية':n.hardwareConcurrency||'غير مكشوف','المعمارية':h.architecture?h.architecture+(h.bitness?' / '+h.bitness+'-bit':''):'غير مكشوفة','النظام':(n.userAgentData&&n.userAgentData.platform)||n.platform};if(h.model)d['الموديل']=h.model;if(h.platformVersion)d['إصدار النظام']=h.platformVersion;return[cores(n.hardwareConcurrency)+(h.architecture?' • '+h.architecture:''),d]}],
+['mem','فحص الذاكرة',async()=>{const n=navigator,m=performance.memory,d={'رام الجهاز (تقريبي)':n.deviceMemory?'≥ '+n.deviceMemory+' GB':'غير مكشوف'};if(m){d['JS Heap المستخدم']=(m.usedJSHeapSize/1048576).toFixed(1)+' MB';d['حد الـHeap']=(m.jsHeapSizeLimit/1048576).toFixed(0)+' MB'}return[d['رام الجهاز (تقريبي)'],d]}],
+['gpu','تحليل كرت الشاشة',async()=>{const g=document.createElement('canvas').getContext('webgl');if(!g)return['غير متاح',{'WebGL':'غير متاح'}];const x=g.getExtension('WEBGL_debug_renderer_info'),d={'كرت الشاشة':x?g.getParameter(x.UNMASKED_RENDERER_WEBGL):g.getParameter(g.RENDERER),'أقصى حجم Texture':g.getParameter(g.MAX_TEXTURE_SIZE),'WebGL2':yn(!!document.createElement('canvas').getContext('webgl2')),'WebGPU':yn(!!navigator.gpu)};return[gn(d['كرت الشاشة']),d]}],
+['scr','فحص الشاشة ومعدل التحديث',async()=>{let f=0;const t=performance.now();await new Promise(r=>(function l(){f++;performance.now()-t<700?requestAnimationFrame(l):r()})());const hz=Math.round(f/((performance.now()-t)/1000)),s=screen,d={'الدقة':s.width+'×'+s.height,'كثافة البكسل':devicePixelRatio+'x','عمق الألوان':s.colorDepth+' bit','معدل التحديث (مقاس)':hz+' Hz','Display P3':yn(matchMedia('(color-gamut: p3)').matches),'HDR':yn(matchMedia('(dynamic-range: high)').matches)};return[s.width+'×'+s.height+' • '+hz+'Hz',d]}],
+['cpu2','اختبار أداء المعالج',async()=>{const t=performance.now();let x=0;for(let i=0;i<5e6;i++)x+=Math.sqrt(i)*Math.sin(i);void x;const ms=Math.round(performance.now()-t),c=ms<65?'سريع':ms<175?'متوسط':'بطيء';return[ms+'ms • '+c,{'زمن الاختبار':ms+' ms','التقييم النسبي':c,'ملاحظة':'قياس لحظي تقريبي، بيتأثر بحالة الجهاز دلوقتي'}]}],
+['sys','فحص المتصفح والنظام',async()=>{const n=navigator,o=Intl.DateTimeFormat().resolvedOptions(),b=((n.userAgentData&&n.userAgentData.brands)||[]).filter(x=>!/Not.?A.?Brand/i.test(x.brand)).map(x=>x.brand+' '+x.version).join(', ');return[b||n.userAgent.slice(0,30),{'المتصفح':b||n.userAgent,'اللغة':(n.languages||[n.language]).join(', '),'المنطقة الزمنية':o.timeZone,'التقويم':o.calendar}]}],
+['net','فحص الاتصال بالشبكة',async()=>{const c=navigator.connection||{},d={'الحالة':navigator.onLine?'متصل':'غير متصل','النوع (تقديري)':c.effectiveType||'غير مكشوف'};let ping='غير متاح';try{const p=[];for(let i=0;i<3;i++){const t=performance.now();await fetch('https://speed.cloudflare.com/__down?bytes=0&r='+Math.random(),{cache:'no-store'});p.push(performance.now()-t)}ping=Math.round(p.slice(1).reduce((a,b)=>a+b)/(p.length-1))+' ms';d['زمن الاستجابة (Ping)']=ping}catch(e){d['زمن الاستجابة (Ping)']='غير متاح'}return[ping,d]}],
+['bat','فحص البطارية',async()=>{try{const b=await navigator.getBattery(),d={'المستوى':Math.round(b.level*100)+'%','الشحن':b.charging?'بتشحن':'لا'};return[d['المستوى']+(b.charging?' ⚡':''),d]}catch(e){return['غير مدعوم',{'البطارية':'غير مدعومة في هذا المتصفح'}]}}],
+['sto','فحص التخزين',async()=>{const d={};try{const e=await navigator.storage.estimate();d['المساحة المتاحة للمتصفح']=(e.quota/1e9).toFixed(1)+' GB';d['المستخدم لهذا الموقع']=(e.usage/1e6).toFixed(2)+' MB'}catch(x){d['التخزين']='غير متاح'}try{localStorage.setItem('_t',1);localStorage.removeItem('_t');d['التخزين المحلي']='يعمل'}catch(x){d['التخزين المحلي']='محظور'}return[d['المساحة المتاحة للمتصفح']||'غير متاح',d]}],
+['per','فحص الصلاحيات الحالية',async()=>{const d={};let g=0;for(const p of['geolocation','camera','microphone','notifications']){try{const s=await navigator.permissions.query({name:p});d[p]=s.state;s.state=='granted'&&g++}catch(e){d[p]='غير مدعوم'}}return[g?g+' ممنوحة':'لا توجد صلاحيات ممنوحة',d]}],
+['prv','فحص إعدادات الخصوصية',async()=>{const n=navigator,b=document.createElement('div');b.className='adsbox ad-banner';b.style.cssText='position:absolute;height:10px;width:10px;left:-999px';document.body.append(b);await sleep(120);const ab=!b.offsetHeight||getComputedStyle(b).display=='none';b.remove();const dnt=n.doNotTrack=='1',gpc=!!n.globalPrivacyControl,d={'HTTPS':yn(location.protocol=='https:'),'الكوكيز':n.cookieEnabled?'مفعلة':'معطلة','Do Not Track':dnt?'مفعل':'غير مفعل','Global Privacy Control':gpc?'مفعل':'غير مفعل/غير مدعوم','حاجب إعلانات':ab?'مكتشف':'غير مكتشف'};return[[ab,dnt,gpc].filter(Boolean).length+'/3 حمايات',d]}],
+['hw','فحص الأجهزة الطرفية',async()=>{const n=navigator,d={'نقاط اللمس':n.maxTouchPoints};try{const v=await n.mediaDevices.enumerateDevices(),c=k=>v.filter(x=>x.kind==k).length;d['كاميرات']=c('videoinput');d['مايكات']=c('audioinput');d['سماعات']=c('audiooutput')}catch(e){}d['أيادي تحكم']=[...(n.getGamepads?n.getGamepads():[])].filter(Boolean).length;return[(d['كاميرات']??'؟')+' كاميرا • '+(d['مايكات']??'؟')+' مايك',d]}],
+['ftr','فحص دعم الميزات',async()=>{const n=navigator,w=window,F={'WebGL':!!document.createElement('canvas').getContext('webgl'),'WebGL2':!!document.createElement('canvas').getContext('webgl2'),'WebGPU':!!n.gpu,'WebAssembly':typeof WebAssembly=='object','WebRTC':!!w.RTCPeerConnection,'Service Worker':'serviceWorker'in n,'Bluetooth':!!n.bluetooth,'NFC':'NDEFReader'in w,'Vibration':!!n.vibrate,'Wake Lock':'wakeLock'in n,'Share':!!n.share,'Clipboard':!!n.clipboard,'Notifications':'Notification'in w,'MediaRecorder':!!w.MediaRecorder,'TTS':'speechSynthesis'in w,'Gamepad':!!n.getGamepads},k=Object.values(F).filter(Boolean).length;return[k+' / '+Object.keys(F).length,Object.fromEntries(Object.entries(F).map(([a,b])=>[a,yn(b)]))]}],
+['rep','إعداد التقرير النهائي',async()=>{await sleep(450);return['جاهز',{}]}]
+];
+async function runScan(){
+  R.scan={};const lbl=$('#lbl'),pb=$('#pb'),log=$('#slog'),n=STEPS.length;log.innerHTML='';
+  for(let i=0;i<n;i++){const[k,t,f]=STEPS[i];
+    lbl.textContent=t+'...';lbl.classList.remove('fd');void lbl.offsetWidth;lbl.classList.add('fd');
+    const t0=performance.now();let r;try{r=await f()}catch(e){r=['غير متاح',{'خطأ':e.message}]}
+    await sleep(Math.max(0,120-(performance.now()-t0)));
+    R.scan[k]=r[1];const p=Math.round((i+1)/n*100);pb.style.width=p+'%';$('#pct').textContent=p+'%';
+    log.insertAdjacentHTML('afterbegin',row('✔ '+t.replace('إعداد ',''),r[0],'ok'));while(log.children.length>6)log.lastChild.remove()}
+  lbl.textContent='اكتمل التحليل ✔';lbl.classList.remove('fd');void lbl.offsetWidth;lbl.classList.add('fd');await sleep(400);dash();show('ap')}
+function dash(){const s=R.scan,g=(k,a)=>String((s[k]||{})[a]??'—'),p=s.prv||{},
+  st=[['المعالج',cores(+g('cpu','الأنوية'))],['الرام',g('mem','رام الجهاز (تقريبي)')],['كرت الشاشة',gn(g('gpu','كرت الشاشة'))],['الشاشة',g('scr','الدقة')],['معدل التحديث',g('scr','معدل التحديث (مقاس)')],['اختبار المعالج',g('cpu2','زمن الاختبار')],['Ping',g('net','زمن الاستجابة (Ping)')],['البطارية',g('bat','المستوى')]],
+  it=[['HTTPS',p['HTTPS']=='نعم'],['Do Not Track',p['Do Not Track']=='مفعل'],['Global Privacy Control',p['Global Privacy Control']=='مفعل'],['حاجب إعلانات/تتبع',p['حاجب إعلانات']=='مكتشف']];
+  $('#dash').innerHTML=`<div class=c><h2>✨ نتيجة التحليل</h2><div class=sg>${st.map(([a,b])=>`<div class=sb><small>${esc(a)}</small><b>${esc(b)}</b></div>`).join('')}</div><div style="margin-top:10px">${it.map(([a,b])=>row(a,b?'✔ مفعل':'✘ غير مفعل',b?'ok':'warn')).join('')}</div><p class=m>النتائج مقاسة على جهازك دلوقتي، وبعضها بيعتمد على اللي بيكشفه المتصفح. التفاصيل الكاملة في «فحص شامل» وفي «التقرير».</p></div>`}
+
+/* فحوصات الفحص الشامل */
+const N={device:'معلومات الجهاز',browser:'المتصفح والنظام',network:'الشبكة وعنوان IP',webrtc:'تسريب WebRTC',privacy:'الخصوصية والتتبع',storage:'التخزين',fp:'بصمة المتصفح'};
+const checks={
+async device(){const n=navigator,r=[['الشاشة',screen.width+'×'+screen.height+' @'+devicePixelRatio+'x'],['عمق الألوان',screen.colorDepth+' bit'],['أنوية المعالج',n.hardwareConcurrency||'؟'],['الرام (تقريبي)',n.deviceMemory?'≥ '+n.deviceMemory+' GB':'غير متاح'],['نقاط اللمس',n.maxTouchPoints]];
+try{const g=document.createElement('canvas').getContext('webgl'),x=g.getExtension('WEBGL_debug_renderer_info');r.push(['كرت الشاشة',x?g.getParameter(x.UNMASKED_RENDERER_WEBGL):'مخفي'])}catch(e){}
+try{const d=await n.mediaDevices.enumerateDevices(),c=k=>d.filter(x=>x.kind==k).length;r.push(['كاميرات/مايكات/سماعات',c('videoinput')+'/'+c('audioinput')+'/'+c('audiooutput')])}catch(e){}
+return r},
+async browser(){const n=navigator,r=[['User-Agent',n.userAgent],['النظام',(n.userAgentData&&n.userAgentData.platform)||n.platform]];
+try{const h=await n.userAgentData.getHighEntropyValues(['architecture','bitness','model','platformVersion','fullVersionList']);r.push(['المعمارية',h.architecture+'/'+h.bitness+' bit'],['إصدار النظام',h.platformVersion||'؟']);if(h.model)r.push(['الموديل',h.model]);r.push(['إصدارات المتصفح',(h.fullVersionList||[]).map(x=>x.brand+' '+x.version).join(', ')])}catch(e){}
+r.push(['اللغات',(n.languages||[n.language]).join(', ')],['المنطقة الزمنية',Intl.DateTimeFormat().resolvedOptions().timeZone],['الكوكيز مفعلة',yn(n.cookieEnabled),n.cookieEnabled?'':'warn'],['اتصال آمن HTTPS',yn(location.protocol=='https:'),location.protocol=='https:'?'ok':'bad'],['متصل',yn(n.onLine)]);
+if(n.connection)r.push(['الشبكة',n.connection.effectiveType+' / '+n.connection.downlink+' Mbps']);return r},
+async network(){const d=await(await fetch('https://ipwho.is/')).json();if(!d.success)throw Error('تعذر جلب البيانات');return[['IP العام',d.ip],['النوع',d.type],['الدولة',d.country+' '+(d.flag?d.flag.emoji:'')],['المدينة (تقريبية)',d.city+', '+d.region],['المزود',d.connection?d.connection.isp:'؟'],['ASN',d.connection?d.connection.asn:'؟']]},
+async webrtc(){const f=new Set();await new Promise(ok=>{try{const p=new RTCPeerConnection({iceServers:[{urls:'stun:stun.l.google.com:19302'}]});p.createDataChannel('x');p.onicecandidate=e=>{if(!e.candidate)return ok();const a=(e.candidate.candidate.split(' ')[4]||'');/^\d{1,3}(\.\d{1,3}){3}$|^[\w-]+\.local$|^[0-9a-f]*:[0-9a-f:]+$/i.test(a)&&f.add(a)};p.createOffer().then(o=>p.setLocalDescription(o));setTimeout(()=>{p.close();ok()},3000)}catch(e){ok()}});
+const a=[...f],l=a.filter(x=>/^(10\.|192\.168\.|172\.(1[6-9]|2\d|3[01])\.|f[cd][0-9a-f]{2}:|fe80:)/i.test(x));return[['العناوين المكتشفة',a.join(', ')||'لا شيء'],['عناوين داخلية مكشوفة',l.length?l.join(', '):'لا',l.length?'warn':'ok']]},
+async privacy(){const n=navigator,r=[['Do Not Track',n.doNotTrack=='1'?'مفعل':'غير مفعل',n.doNotTrack=='1'?'ok':'warn'],['Global Privacy Control',n.globalPrivacyControl?'مفعل':'غير مفعل/غير مدعوم',n.globalPrivacyControl?'ok':'warn']];
+const b=document.createElement('div');b.className='adsbox ad-banner';b.style.cssText='position:absolute;height:10px;width:10px;left:-999px';document.body.append(b);await new Promise(r=>setTimeout(r,150));const k=!b.offsetHeight||getComputedStyle(b).display=='none';b.remove();r.push(['حاجب إعلانات/تتبع',k?'مكتشف':'غير مكتشف',k?'ok':'warn']);
+for(const p of['geolocation','camera','microphone','notifications']){try{const s=await n.permissions.query({name:p});r.push(['صلاحية '+p,s.state,s.state=='granted'?'warn':'ok'])}catch(e){}}return r},
+async storage(){const r=[];try{localStorage.setItem('_t',1);localStorage.removeItem('_t');r.push(['التخزين المحلي','يعمل'])}catch(e){r.push(['التخزين المحلي','محظور','ok'])}
+if(navigator.storage&&navigator.storage.estimate){const e=await navigator.storage.estimate();r.push(['المساحة المتاحة للمتصفح',(e.quota/1e9).toFixed(1)+' GB'],['المستخدمة',(e.usage/1e6).toFixed(2)+' MB'])}return r},
+async fp(){const c=document.createElement('canvas');c.width=200;c.height=40;const x=c.getContext('2d');x.font='16px Arial';x.fillText('Zilus ✓ 😀',4,24);const n=navigator;
+const h=(await sha('SHA-256',[c.toDataURL(),n.userAgent,screen.width+'x'+screen.height,n.language,Intl.DateTimeFormat().resolvedOptions().timeZone,n.hardwareConcurrency].join('|'))).slice(0,16);
+return[['بصمة المتصفح',h],['ملاحظة','مواقع كتير بتستخدم تركيبة بيانات زي دي لتتبعك بدون كوكيز','warn']]}};
+
+/* الأدوات */
+const T=[
+['scan','🔍','فحص شامل',el=>{el.innerHTML='<h2>اختار الفحوصات</h2>'+Object.entries(N).map(([k,v])=>`<label class=o><input type=checkbox class=sc value=${k} ${['device','browser','privacy'].includes(k)?'checked':''}>${v}</label>`).join('')+'<button id=go>ابدأ الفحص</button><div id=so></div>';
+$('#go',el).onclick=async()=>{const o=$('#so',el);o.innerHTML='';for(const k of[...el.querySelectorAll('.sc:checked')].map(x=>x.value)){const d=document.createElement('div');d.className='c';d.innerHTML=`<h2>${N[k]}</h2><div class=m>جاري الفحص...</div>`;o.append(d);try{const r=await checks[k]();R[k]=Object.fromEntries(r.map(x=>[x[0],x[1]]));d.innerHTML=`<h2>${N[k]}</h2>`+r.map(x=>row(...x)).join('')}catch(e){d.innerHTML=`<h2>${N[k]}</h2>`+row('خطأ',e.message||'فشل','warn')}}}}],
+
+['speed','🚀','سرعة الإنترنت',el=>{el.innerHTML='<h2>اختبار السرعة</h2><p class=m>بيستخدم خوادم Cloudflare وبيستهلك حوالي 12MB.</p><button id=b>ابدأ</button><div id=o></div>';
+$('#b',el).onclick=async()=>{const o=$('#o',el),bt=$('#b',el);bt.disabled=1;try{o.innerHTML='<p class=m>قياس Ping...</p>';const p=[];for(let i=0;i<5;i++){const t=performance.now();await fetch('https://speed.cloudflare.com/__down?bytes=0&r='+Math.random(),{cache:'no-store'});p.push(performance.now()-t)}
+const q2=p.slice(1),ping=Math.round(q2.reduce((a,b)=>a+b)/q2.length),jit=Math.round(Math.max(...q2)-Math.min(...q2)),h=row('Ping',ping+' ms')+row('Jitter',jit+' ms');o.innerHTML=h+'<p class=m>قياس التحميل...</p>';
+let t=performance.now(),n=0;await Promise.all([0,1,2,3].map(async k=>{const rd=(await fetch('https://speed.cloudflare.com/__down?bytes=2500000&r='+k+'-'+Math.random(),{cache:'no-store'})).body.getReader();for(;;){const x=await rd.read();if(x.done)break;n+=x.value.length}}));
+const dl=(n*8/((performance.now()-t)/1000)/1e6).toFixed(1);o.innerHTML=h+row('التحميل',dl+' Mbps','ok')+'<p class=m>قياس الرفع...</p>';
+t=performance.now();await fetch('https://speed.cloudflare.com/__up',{method:'POST',body:new Blob([new Uint8Array(2e6)])});const ul=(16/((performance.now()-t)/1000)).toFixed(1);
+o.innerHTML=h+row('التحميل',dl+' Mbps','ok')+row('الرفع',ul+' Mbps','ok');R.speed={ping,dl,ul}}catch(e){o.innerHTML=row('خطأ','تعذر الاتصال بالخدمة','warn')}bt.disabled=0}}],
+
+['perm','🔐','اختبار الصلاحيات',el=>{el.innerHTML='<h2>اختبار الصلاحيات</h2><p class=m>كل زر بيطلب صلاحية واحدة، والمتصفح هيسألك. الموقع (لو سمحت بيه) بيتحفظ في ذاكرة الصفحة وبيدخل التقرير، ومش بيتبعت لأي سيرفر.</p><button class=s data-p=g>📍 الموقع</button> <button class=s data-p=n>🔔 الإشعارات</button> <button class=s data-p=c>📋 الحافظة</button><div id=o></div>';
+el.querySelectorAll('[data-p]').forEach(b=>b.onclick=async()=>{let m;try{if(b.dataset.p=='g'){const p=await new Promise((a,r)=>navigator.geolocation.getCurrentPosition(a,r,{timeout:15000}));m='الموقع: '+p.coords.latitude.toFixed(4)+', '+p.coords.longitude.toFixed(4)+' (±'+Math.round(p.coords.accuracy)+'م)';R.geo={lat:p.coords.latitude,lon:p.coords.longitude}}else if(b.dataset.p=='n')m='الإشعارات: '+await Notification.requestPermission();else m='الحافظة: '+((await navigator.clipboard.readText()).length?'اتقرت (محتوى مخفي)':'فاضية')}catch(e){m='مرفوضة أو غير متاحة'}$('#o',el).innerHTML=row(m,'')+$('#o',el).innerHTML})}],
+
+['pwn','🔓','تسريب كلمة السر',el=>{el.innerHTML='<h2>هل كلمة السر اتسربت؟</h2><p class=m>بيتحسب SHA-1 على جهازك وبيتبعت أول 5 حروف بس لخدمة Pwned Passwords، فالكلمة نفسها ما بتخرجش.</p><input type=password id=p placeholder="كلمة السر" autocomplete=off><button id=b>افحص</button><div id=o></div>';
+$('#b',el).onclick=async()=>{const v=$('#p',el).value,o=$('#o',el);if(!v)return;o.textContent='جاري الفحص...';try{const h=(await sha('SHA-1',v)).toUpperCase(),l=(await(await fetch('https://api.pwnedpasswords.com/range/'+h.slice(0,5),{headers:{'Add-Padding':'true'},referrerPolicy:'no-referrer',credentials:'omit'})).text()).split('\n').find(x=>x.startsWith(h.slice(5))&&+x.split(':')[1]>0);o.innerHTML=l?`<p class=bad>⚠ ظهرت ${(+l.split(':')[1]).toLocaleString()} مرة في تسريبات. غيّرها فوراً.</p>`:'<p class=ok>✅ مش موجودة في التسريبات المعروفة (ده مش ضمان إنها قوية).</p>'}catch(e){o.innerHTML='<p class=warn>تعذر الاتصال.</p>'}$('#p',el).value=''}}],
+
+['mail','📧','تسريب الإيميل/الرقم',el=>{el.innerHTML='<h2>فحص الإيميل أو الرقم</h2><p class=m>مفيش خدمة مجانية عامة نفحص بيها الإيميلات أو الأرقام من هنا. افتح خدمة موثوقة واكتب بياناتك هناك (مش بتتبعت لنا).</p><input type=email id=e placeholder="you@example.com (اختياري للنسخ)"><button class=s id=c>نسخ الإيميل</button><br><button id=h>Have I Been Pwned</button> <button class=s id=m>Mozilla Monitor</button>';
+$('#c',el).onclick=()=>navigator.clipboard.writeText($('#e',el).value).then(()=>alert('تم النسخ'),()=>alert('تعذر النسخ'));$('#h',el).onclick=()=>open('https://haveibeenpwned.com/','_blank','noopener,noreferrer');$('#m',el).onclick=()=>open('https://monitor.mozilla.org/','_blank','noopener,noreferrer')}],
+
+['gen','🔑','قوة وتوليد كلمة سر',null],
+
+['px','🖥','فحص الشاشة',el=>{el.innerHTML='<h2>فحص البكسلات الميتة</h2><p class=m>اضغط على الشاشة للتنقل بين الألوان وابحث عن نقط شاذة.</p><button id=b>ابدأ</button>';
+$('#b',el).onclick=()=>{const cs=['#000','#fff','#f00','#0f0','#00f'];let i=0;const d=document.createElement('div');d.style.cssText='position:fixed;inset:0;z-index:99;background:#000;color:#888;display:flex;align-items:flex-end;justify-content:center;padding:20px';d.textContent='اضغط للتالي';document.body.append(d);d.requestFullscreen&&d.requestFullscreen().catch(()=>{});d.onclick=()=>{i++;if(i>=cs.length){d.remove();document.fullscreenElement&&document.exitFullscreen();return}d.style.background=cs[i];d.textContent=''}}}],
+
+['touch','👆','فحص اللمس',el=>{el.innerHTML='<h2>فحص اللمس</h2><div id=pad>المس الشاشة بعدة أصابع</div><div id=ti class=m></div>';let mx=0;const p=$('#pad',el),u=e=>{e.preventDefault();const t=[...e.touches];mx=Math.max(mx,t.length);p.textContent=t.map((x,i)=>`#${i+1}: ${Math.round(x.clientX)},${Math.round(x.clientY)}`).join(' | ')||'ارفع إصبعك';$('#ti',el).textContent='أقصى عدد أصابع في نفس الوقت: '+mx};['touchstart','touchmove','touchend'].forEach(n=>p.addEventListener(n,u,{passive:false}))}],
+
+['key','⌨️','فحص الكيبورد',el=>{el.innerHTML='<h2>فحص الكيبورد</h2><p class=m>اضغط أي مفتاح.</p><div id=o></div><div id=kc class=m></div>';const s=new Set(),f=e=>{e.preventDefault();$('#o',el).innerHTML=row('key',e.key)+row('code',e.code)+row('keyCode',e.keyCode)+row('Ctrl/Alt/Shift',[e.ctrlKey,e.altKey,e.shiftKey].map(yn).join(' / '));s.add(e.code);$('#kc',el).textContent='مفاتيح اتجربت: '+s.size};addEventListener('keydown',f);cl.push(()=>removeEventListener('keydown',f))}],
+
+['cam','📷','الكاميرا',el=>{el.innerHTML='<h2>اختبار الكاميرا</h2><p class=m>الفيديو بيتعرض عندك بس.</p><video id=v autoplay playsinline muted style="width:100%;border-radius:10px;background:#000"></video><button id=b>تشغيل</button> <button class=s id=sw>قلب الكاميرا</button><div id=o class=m></div>';let s,fm='user';const st=()=>s&&s.getTracks().forEach(t=>t.stop());cl.push(st);
+const go=async()=>{st();try{s=await navigator.mediaDevices.getUserMedia({video:{facingMode:fm}});$('#v',el).srcObject=s;const t=s.getVideoTracks()[0].getSettings();$('#o',el).textContent=`${t.width}×${t.height} @${Math.round(t.frameRate||0)}fps`}catch(e){$('#o',el).textContent='مرفوضة أو غير متاحة'}};$('#b',el).onclick=go;$('#sw',el).onclick=()=>{fm=fm=='user'?'environment':'user';go()}}],
+
+['mic','🎤','المايك',el=>{el.innerHTML='<h2>اختبار المايك</h2><button id=b>تشغيل</button><div class=lv><i id=l></i></div><div id=o class=m></div>';let s,ac;cl.push(()=>{s&&s.getTracks().forEach(t=>t.stop());ac&&ac.close()});
+$('#b',el).onclick=async()=>{try{s=await navigator.mediaDevices.getUserMedia({audio:true});ac=new AudioContext();const a=ac.createAnalyser();ac.createMediaStreamSource(s).connect(a);const d=new Uint8Array(a.fftSize);(function l(){if(!ac||ac.state=='closed')return;a.getByteTimeDomainData(d);let m=0;d.forEach(v=>m=Math.max(m,Math.abs(v-128)));$('#l',el).style.width=Math.min(100,m/128*200)+'%';requestAnimationFrame(l)})();$('#o',el).textContent='اتكلم وراقب الشريط'}catch(e){$('#o',el).textContent='مرفوض أو غير متاح'}}}],
+
+['snd','🔊','السماعات والاهتزاز',el=>{el.innerHTML='<h2>اختبار الصوت والاهتزاز</h2><button data-p=-1>يسار</button> <button data-p=0>الاتنين</button> <button data-p=1>يمين</button> <button class=s id=vb>📳 اهتزاز</button>';
+el.querySelectorAll('[data-p]').forEach(b=>b.onclick=()=>{const ac=new AudioContext(),o=ac.createOscillator(),p=ac.createStereoPanner(),g=ac.createGain();o.frequency.value=440;p.pan.value=+b.dataset.p;g.gain.value=.2;o.connect(p).connect(g).connect(ac.destination);o.start();setTimeout(()=>{o.stop();ac.close()},900)});
+$('#vb',el).onclick=()=>navigator.vibrate?navigator.vibrate([200,100,200]):alert('الاهتزاز غير مدعوم هنا')}],
+
+['sen','🧭','حساسات الحركة',el=>{el.innerHTML='<h2>حساسات الحركة والاتجاه</h2><button id=b>تشغيل</button><div id=o></div>';let a={},m={};const dr=()=>$('#o',el).innerHTML=row('Alpha/Beta/Gamma',[a.alpha,a.beta,a.gamma].map(v=>v==null?'—':v.toFixed(0)).join(' / '))+row('التسارع x/y/z',['x','y','z'].map(k=>m[k]==null?'—':m[k].toFixed(2)).join(' / ')),oo=e=>{a=e;dr()},mm=e=>{m=e.accelerationIncludingGravity||{};dr()};
+cl.push(()=>{removeEventListener('deviceorientation',oo);removeEventListener('devicemotion',mm)});$('#b',el).onclick=async()=>{try{DeviceMotionEvent.requestPermission&&await DeviceMotionEvent.requestPermission()}catch(e){}addEventListener('deviceorientation',oo);addEventListener('devicemotion',mm);dr()}}],
+
+['perf','⚡','أداء الجهاز',el=>{el.innerHTML='<h2>معدل التحديث واختبار المعالج</h2><button id=b>ابدأ</button><div id=o></div>';
+$('#b',el).onclick=async()=>{const o=$('#o',el);o.innerHTML='<p class=m>جاري القياس...</p>';let f=0;const t=performance.now();await new Promise(r=>(function l(){f++;performance.now()-t<2000?requestAnimationFrame(l):r()})());const hz=Math.round(f/((performance.now()-t)/1000)),t2=performance.now();let x=0;for(let i=0;i<8e6;i++)x+=Math.sqrt(i)*Math.sin(i);const ms=Math.round(performance.now()-t2);
+o.innerHTML=row('معدل تحديث الشاشة (تقريبي)',hz+' Hz')+row('اختبار المعالج',ms+' ms (أقل = أسرع)',ms<80?'ok':ms<240?'warn':'bad');R.perf={hz,cpuMs:ms}}}],
+
+['pad','🎮','يد التحكم',el=>{el.innerHTML='<h2>يد التحكم</h2><p class=m>وصّل يد وادوس أي زرار.</p><div id=o></div>';let run=1;cl.push(()=>run=0);(function l(){if(!run)return;const g=[...navigator.getGamepads()].filter(Boolean);$('#o',el).innerHTML=g.length?g.map(x=>row(x.id.slice(0,40),'أزرار: '+x.buttons.map((b,i)=>b.pressed?i:'').filter(v=>v!=='').join(',')+' | محاور: '+x.axes.map(a=>a.toFixed(1)).join(','))).join(''):'<p class=m>مفيش يد متصلة</p>';requestAnimationFrame(l)})()}],
+
+['bat','🔋','البطارية',async el=>{el.innerHTML='<h2>البطارية</h2><div id=o></div>';try{const b=await navigator.getBattery(),d=()=>$('#o',el).innerHTML=row('المستوى',Math.round(b.level*100)+'%')+row('الشحن',b.charging?'بتشحن ⚡':'مش بتشحن')+row('وقت للامتلاء',b.chargingTime==Infinity?'—':Math.round(b.chargingTime/60)+' د')+row('وقت للنفاد',b.dischargingTime==Infinity?'—':Math.round(b.dischargingTime/60)+' د');d();['levelchange','chargingchange'].forEach(e=>b.addEventListener(e,d))}catch(e){$('#o',el).innerHTML=row('غير مدعوم','Battery API مش متاحة في المتصفح ده','warn')}}],
+
+['ck','🍪','الكوكيز والتخزين',el=>{const d=()=>{const c=document.cookie?document.cookie.split('; '):[];$('#o',el).innerHTML=row('عدد الكوكيز',c.length)+c.map(x=>row(x.split('=')[0],(x.split('=')[1]||'').slice(0,30))).join('')+row('localStorage',localStorage.length+' عنصر')+row('sessionStorage',sessionStorage.length+' عنصر')};
+el.innerHTML='<h2>كوكيز وتخزين هذا الموقع</h2><div id=o></div><button class=s id=b>مسح الكل</button>';d();$('#b',el).onclick=()=>{if(!confirm('هتمسح كل بيانات هذا الموقع (الكوكيز، الخزنة، التفعيل، المعرّف). متأكد؟'))return;document.cookie.split('; ').forEach(c=>document.cookie=c.split('=')[0]+'=;expires=Thu,01 Jan 1970 00:00:00 GMT;path=/');Object.keys(localStorage).filter(k=>k.startsWith('zx.')).forEach(k=>localStorage.removeItem(k));sessionStorage.clear();d()}}],
+
+['hash','#️⃣','توليد Hash',el=>{el.innerHTML='<h2>توليد بصمات Hash</h2><textarea id=t rows=3 placeholder="اكتب نص"></textarea><div id=o></div>';$('#t',el).oninput=async e=>{const v=e.target.value;$('#o',el).innerHTML=v?(await Promise.all(['SHA-1','SHA-256','SHA-512'].map(async a=>row(a,await sha(a,v))))).join(''):''}}],
+
+['rep','📄','التقرير',null]
+];
+
+$('#gd').innerHTML=T.map((t,i)=>`<button data-i=${i}><b>${t[1]}</b>${t[2]}</button>`).join('');
+const home=()=>{cl.splice(0).forEach(f=>f());$('#v').innerHTML='';$('#hm').classList.remove('h')};
+$('#gd').onclick=e=>{const b=e.target.closest('[data-i]');if(!b)return;cl.splice(0).forEach(f=>f());$('#hm').classList.add('h');const v=$('#v');v.innerHTML='<button class=s id=bk>← رجوع</button>';const el=document.createElement('div');el.className='c';v.append(el);$('#bk').onclick=home;T[b.dataset.i][3](el)};
+</script>
+<script>
+(()=>{
+document.head.append(Object.assign(document.createElement('style'),{textContent:'select,input[type=date],input[type=search],input[type=file]{width:100%;padding:9px;border-radius:8px;border:1px solid rgba(212,175,55,.3);background:#0a0d16;color:#fff;margin:5px 0}input[type=color]{width:100%;height:44px;border:0;background:none}pre{margin:6px 0;white-space:pre-wrap;word-break:break-all;direction:ltr;text-align:left;font-size:13px}.bx{height:150px;border-radius:10px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:18px;margin:8px 0;user-select:none;position:relative;overflow:hidden}'}));
+const A=(id,i,t,f)=>T.push([id,i,t,f]),H=(t,b)=>`<h2>${t}</h2>${b}`,hx=u=>[...u].map(b=>b.toString(16).padStart(2,'0')).join('');
+const X=(id,i,t,fn)=>A(id,i,t,el=>{el.innerHTML=H(t,'<textarea id=t rows=5 placeholder="اكتب أو الصق النص هنا"></textarea><pre id=o></pre>');$('#t',el).oninput=e=>{let r='';try{r=e.target.value?fn(e.target.value):''}catch(x){r='خطأ: '+x.message}$('#o',el).textContent=r}});
+const F=(id,i,t,h,fn,man)=>A(id,i,t,el=>{el.innerHTML=H(t,h+'<div id=o></div>');const g=n=>$('#'+n,el),run=async()=>{try{el.querySelectorAll('input[inputmode=decimal],input[inputmode=numeric]').forEach(i=>{const v=i.value.replace(/[٠-٩]/g,c=>c.charCodeAt(0)-1632).replace(/[۰-۹]/g,c=>c.charCodeAt(0)-1776).replace(/٫/g,'.');if(v!==i.value)i.value=v});$('#o',el).innerHTML=(await fn(g)).map(r=>row(...r)).join('')}catch(e){$('#o',el).innerHTML=row('خطأ',e.message,'warn')}};el.onclick=e=>e.target.tagName=='BUTTON'&&run();if(!man){el.oninput=el.onchange=run;run()}});
+const I=(id,i,t,fn,ev=[])=>A(id,i,t,el=>{el.innerHTML=H(t,'<div id=o>...</div>');const u=async()=>{try{$('#o',el).innerHTML=(await fn()).map(r=>row(...r)).join('')}catch(e){$('#o',el).innerHTML=row('غير مدعوم/خطأ',e.message,'warn')}};ev.forEach(([a,n])=>{a.addEventListener(n,u);cl.push(()=>a.removeEventListener(n,u))});u()});
+const ok=(k,v)=>[k,v?'✔ نعم':'✘ لا',v?'ok':'warn'],mq=l=>l.map(([k,q])=>[k,matchMedia(q).matches?'نعم':'لا']);
+const C=(id,i,t,u)=>F(id,i,t,`<input type=text id=v value=1 inputmode=decimal><select id=f>${Object.keys(u).map(k=>`<option>${k}</option>`).join('')}</select>`,g=>{const b=+g('v').value*u[g('f').value];return Object.keys(u).map(k=>[k,(b/u[k]).toLocaleString('en',{maximumSignificantDigits:9})])});
+const fmt2=s=>s.toString(16).padStart(2,'0');
+
+/* ===== أدوات النصوص (22) ===== */
+X('wc','📝','عدّاد الكلمات',v=>{const w=(v.trim().match(/\S+/g)||[]).length;return `الكلمات: ${w}\nالحروف: ${[...v].length}\nبدون مسافات: ${[...v.replace(/\s/g,'')].length}\nالأسطر: ${v.split('\n').length}\nالجمل: ${(v.match(/[^.!?؟]+[.!?؟]+/g)||[]).length}\nوقت القراءة: ~${Math.max(1,Math.round(w/200))} دقيقة`});
+X('cs','🔠','حالة الأحرف',v=>`UPPER:\n${v.toUpperCase()}\n\nlower:\n${v.toLowerCase()}\n\nTitle:\n${v.toLowerCase().replace(/(^|\s)\S/g,c=>c.toUpperCase())}`);
+X('rv','↩️','عكس النص',v=>[...v].reverse().join(''));
+X('dp','🗑','حذف الأسطر المكررة',v=>[...new Set(v.split('\n'))].join('\n'));
+X('st','🔃','ترتيب الأسطر',v=>v.split('\n').sort((a,b)=>a.localeCompare(b)).join('\n'));
+X('b6','📦','Base64',v=>{const e=btoa([...new TextEncoder().encode(v)].map(c=>String.fromCharCode(c)).join(''));let d='(مش Base64 صالح)';try{d=new TextDecoder().decode(Uint8Array.from(atob(v.trim()),c=>c.charCodeAt(0)))}catch(x){}return 'ترميز:\n'+e+'\n\nفك:\n'+d});
+X('ur','🔗','ترميز URL',v=>{let d='—';try{d=decodeURIComponent(v)}catch(x){}return 'ترميز:\n'+encodeURIComponent(v)+'\n\nفك:\n'+d});
+X('he','🏷','HTML Entities',v=>{const t=document.createElement('textarea');t.innerHTML=v;return 'Escape:\n'+v.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))+'\n\nUnescape:\n'+t.value});
+X('hx','🔟','نص ↔ Hex',v=>{let r='إلى Hex:\n'+[...new TextEncoder().encode(v)].map(fmt2).join(' ');if(/^([0-9a-f]{2}\s*)+$/i.test(v.trim()))r+='\n\nمن Hex:\n'+new TextDecoder().decode(Uint8Array.from(v.replace(/\s/g,'').match(/../g),x=>parseInt(x,16)));return r});
+X('bn','🔢','نص ↔ Binary',v=>{let r='إلى Binary:\n'+[...new TextEncoder().encode(v)].map(b=>b.toString(2).padStart(8,'0')).join(' ');if(/^[01\s]+$/.test(v.trim())&&v.replace(/\s/g,'').length%8==0)r+='\n\nمن Binary:\n'+new TextDecoder().decode(Uint8Array.from(v.replace(/\s/g,'').match(/.{8}/g),x=>parseInt(x,2)));return r});
+const M={A:'.-',B:'-...',C:'-.-.',D:'-..',E:'.',F:'..-.',G:'--.',H:'....',I:'..',J:'.---',K:'-.-',L:'.-..',M:'--',N:'-.',O:'---',P:'.--.',Q:'--.-',R:'.-.',S:'...',T:'-',U:'..-',V:'...-',W:'.--',X:'-..-',Y:'-.--',Z:'--..',0:'-----',1:'.----',2:'..---',3:'...--',4:'....-',5:'.....',6:'-....',7:'--...',8:'---..',9:'----.'},MR=Object.fromEntries(Object.entries(M).map(([k,v])=>[v,k]));
+X('mo','📻','شيفرة مورس',v=>/^[.\-\s\/]+$/.test(v)?v.trim().split(/\s*\/\s*/).map(w=>w.split(/\s+/).map(c=>MR[c]||'?').join('')).join(' '):v.toUpperCase().split(/\s+/).map(w=>[...w].map(c=>M[c]||'?').join(' ')).join(' / '));
+X('r1','🔁','ROT13',v=>v.replace(/[a-z]/gi,c=>String.fromCharCode((c<='Z'?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26)));
+X('js','{ }','JSON منسّق',v=>{const o=JSON.parse(v);return '✔ JSON صالح\n\n'+JSON.stringify(o,null,2)+'\n\nمضغوط:\n'+JSON.stringify(o)});
+X('jw','🎫','فك JWT',v=>{const d=s=>{s=s.replace(/-/g,'+').replace(/_/g,'/');return JSON.parse(new TextDecoder().decode(Uint8Array.from(atob(s+'='.repeat((4-s.length%4)%4)),c=>c.charCodeAt(0))))},p=v.trim().split('.');if(p.length<2)throw Error('مش JWT');const l=d(p[1]);return 'Header:\n'+JSON.stringify(d(p[0]),null,2)+'\n\nPayload:\n'+JSON.stringify(l,null,2)+(l.exp?'\n\nينتهي: '+new Date(l.exp*1e3).toISOString()+(l.exp*1e3<Date.now()?' (منتهي)':''):'')+'\n\n⚠ التوقيع مش بيتتحقق منه هنا.'});
+X('sl','🧷','Slug',v=>v.trim().toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/[^\p{L}\p{N}]+/gu,'-').replace(/^-|-$/g,''));
+X('un','🔣','مفتش Unicode',v=>[...v].slice(0,200).map(c=>`U+${c.codePointAt(0).toString(16).toUpperCase().padStart(4,'0')}  ${c}  UTF-8: ${[...new TextEncoder().encode(c)].map(fmt2).join(' ')}`).join('\n'));
+X('ts','✂️','حذف التشكيل',v=>v.replace(/[\u064B-\u065F\u0670\u0640]/g,''));
+X('dg','٣','أرقام عربية ↔ إنجليزية',v=>'إلى إنجليزي:\n'+v.replace(/[٠-٩]/g,c=>c.charCodeAt(0)-1632).replace(/[۰-۹]/g,c=>c.charCodeAt(0)-1776)+'\n\nإلى عربي:\n'+v.replace(/\d/g,c=>String.fromCharCode(1632+ +c)));
+X('xt','🧲','استخراج روابط وإيميلات',v=>{const f=r=>[...new Set(v.match(r)||[])].join('\n')||'—';return 'الروابط:\n'+f(/https?:\/\/[^\s<>"']+/g)+'\n\nالإيميلات:\n'+f(/[\w.+-]+@[\w-]+(?:\.[\w-]+)+/g)+'\n\nأرقام محتملة:\n'+f(/\+?\d[\d\s\-()]{7,}\d/g)});
+X('cv','📊','CSV ← JSON',v=>{const p=s=>{const r=[];let c='',q=0;for(let i=0;i<s.length;i++){const h=s[i];if(h=='"'){if(q&&s[i+1]=='"'){c+='"';i++}else q=!q}else if(h==','&&!q){r.push(c);c=''}else c+=h}r.push(c);return r},L=v.trim().split(/\r?\n/).map(p),h=L.shift();return JSON.stringify(L.map(r=>Object.fromEntries(h.map((k,i)=>[k,r[i]??'']))),null,2)});
+X('fq','📈','تكرار الحروف',v=>{const c={};for(const h of v.replace(/\s/g,''))c[h]=(c[h]||0)+1;return Object.entries(c).sort((a,b)=>b[1]-a[1]).slice(0,25).map(([k,n])=>k+'  '+n).join('\n')});
+X('cl2','🧼','تنظيف المسافات والأسطر',v=>v.replace(/[ \t]+/g,' ').replace(/\n\s*\n+/g,'\n').trim());
+
+/* ===== محولات الوحدات (9) ===== */
+C('c1','📏','تحويل الطول',{mm:.001,cm:.01,m:1,km:1e3,inch:.0254,foot:.3048,yard:.9144,mile:1609.344,'nautical mile':1852});
+C('c2','🏋','تحويل الوزن',{mg:1e-6,g:.001,kg:1,'طن':1e3,oz:.028349523125,lb:.45359237,stone:6.35029318});
+C('c3','💾','تحويل حجم البيانات',{bit:.125,B:1,KB:1e3,MB:1e6,GB:1e9,TB:1e12,KiB:1024,MiB:1048576,GiB:1073741824,TiB:1099511627776});
+C('c4','🏎','تحويل السرعة',{'m/s':1,'km/h':1/3.6,mph:.44704,knot:1852/3600,'ft/s':.3048});
+C('c5','🗺','تحويل المساحة',{'m²':1,'km²':1e6,'هكتار':1e4,acre:4046.8564224,'ft²':.09290304,'in²':.00064516,'mi²':2589988.110336,'فدان':4200.833});
+C('c6','🧪','تحويل الحجم',{mL:.001,L:1,'m³':1e3,'gal (US)':3.785411784,'qt (US)':.946352946,'cup (US)':.2365882365,'fl oz (US)':.0295735295625,tbsp:.01478676478125,tsp:.00492892159375});
+C('c7','⌛','تحويل الزمن',{ms:.001,'ثانية':1,'دقيقة':60,'ساعة':3600,'يوم':86400,'أسبوع':604800,'سنة (365 يوم)':31536000});
+C('c8','🎈','تحويل الضغط',{Pa:1,kPa:1e3,bar:1e5,atm:101325,psi:6894.757293168,mmHg:133.322387415});
+F('c9','🌡','تحويل الحرارة','<input type=text id=v value=25 inputmode=decimal><select id=f><option>C</option><option>F</option><option>K</option></select>',g=>{const v=+g('v').value,f=g('f').value,c=f=='C'?v:f=='F'?(v-32)*5/9:v-273.15;return[['°C',+c.toFixed(2)],['°F',+(c*9/5+32).toFixed(2)],['K',+(c+273.15).toFixed(2)]]});
+
+/* ===== حاسبات وتواريخ (13) ===== */
+F('pc','٪','نسبة مئوية','<input type=text id=a value=20 inputmode=decimal placeholder=A><input type=text id=b value=150 inputmode=decimal placeholder=B>',g=>{const a=+g('a').value,b=+g('b').value;if(!a||!b)throw Error('اكتب أرقاماً غير صفرية في A وB');return[['A% من B',a/100*b],['A كام % من B',(a/b*100).toFixed(2)+'%'],['التغير من A إلى B',((b-a)/a*100).toFixed(2)+'%']]});
+F('bm','⚖','حاسبة BMI','<input type=text id=h value=170 inputmode=decimal placeholder="الطول cm"><input type=text id=w value=70 inputmode=decimal placeholder="الوزن kg"><p class=m>مؤشر عام وليس تشخيصاً طبياً.</p>',g=>{const h=+g('h').value/100;if(!(h>0))throw Error('اكتب طولاً صحيحاً');const b=+g('w').value/h/h;return[['BMI',b.toFixed(1)],['التصنيف (WHO)',b<18.5?'نحافة':b<25?'وزن طبيعي':b<30?'زيادة وزن':'سمنة']]});
+F('ln','🏦','قسط القرض','<input type=text id=p value=100000 inputmode=decimal placeholder="المبلغ"><input type=text id=r value=12 inputmode=decimal placeholder="الفائدة السنوية %"><input type=text id=y value=5 inputmode=decimal placeholder="السنين">',g=>{const P=+g('p').value,i=+g('r').value/1200,n=+g('y').value*12;if(!(n>0))throw Error('اكتب مدة صحيحة');const m=i?P*i/(1-Math.pow(1+i,-n)):P/n;return[['القسط الشهري',m.toFixed(2)],['إجمالي المدفوع',(m*n).toFixed(2)],['إجمالي الفوائد',(m*n-P).toFixed(2)]]});
+F('tp','🧾','تقسيم الفاتورة','<input type=text id=b value=500 inputmode=decimal><input type=text id=t value=10 inputmode=decimal placeholder="بقشيش %"><input type=text id=n value=4 inputmode=numeric placeholder="عدد الأشخاص">',g=>{const b=+g('b').value,t=b*g('t').value/100,s=b+t;return[['البقشيش',t.toFixed(2)],['الإجمالي',s.toFixed(2)],['نصيب الفرد',(s/(+g('n').value||1)).toFixed(2)]]});
+F('dd','📅','فرق بين تاريخين','<input type=date id=a><input type=date id=b>',g=>{const a=g('a').value,b=g('b').value;if(!a||!b)return[['اختار التاريخين','—']];const d=(new Date(b)-new Date(a))/864e5;return[['الأيام',d],['الأسابيع',(d/7).toFixed(1)],['الشهور (تقريبي)',(d/30.4375).toFixed(1)],['السنين (تقريبي)',(d/365.25).toFixed(2)]]});
+F('ag','🎂','حاسبة العمر','<input type=date id=b>',g=>{const v=g('b').value;if(!v)return[['اختار تاريخ الميلاد','—']];const b=new Date(v+'T00:00'),n=new Date();let y=n.getFullYear()-b.getFullYear(),m=n.getMonth()-b.getMonth(),d=n.getDate()-b.getDate();if(d<0){m--;d+=new Date(n.getFullYear(),n.getMonth(),0).getDate()}if(m<0){y--;m+=12}const nb=new Date(n.getFullYear(),b.getMonth(),b.getDate());if(nb<=n)nb.setFullYear(n.getFullYear()+1);return[['العمر',y+' سنة، '+m+' شهر، '+d+' يوم'],['إجمالي الأيام',Math.floor((n-b)/864e5)],['باقي على عيد ميلادك',Math.ceil((nb-n)/864e5)+' يوم']]});
+F('ux','🕒','Unix Timestamp','<input type=text id=v placeholder="رقم (ثواني/ms) أو تاريخ">',g=>{const s=g('v').value.trim(),r=[['الآن (ثواني)',Math.floor(Date.now()/1e3)],['الآن (ms)',Date.now()]];if(!s)return r;const d=/^-?\d+$/.test(s)?new Date(Math.abs(+s)<1e11?+s*1e3:+s):new Date(s);if(isNaN(d))throw Error('صيغة غير مفهومة');return[['UTC',d.toISOString()],['محلي',d.toString()],['Unix (ثواني)',Math.floor(d/1e3)],...r]});
+F('bs','🔢','تحويل الأعداد','<input type=text id=v value=255><select id=b><option>10</option><option>2</option><option>8</option><option>16</option><option>36</option></select><p class=m>حتى 2^53.</p>',g=>{const n=parseInt(g('v').value,+g('b').value);if(isNaN(n))throw Error('رقم غير صالح للأساس ده');return[2,8,10,16,36].map(b=>['Base '+b,n.toString(b).toUpperCase()])});
+F('rm','🏛','الأرقام الرومانية','<input type=text id=v value=2026>',g=>{const s=g('v').value.trim().toUpperCase(),Q=[[1000,'M'],[900,'CM'],[500,'D'],[400,'CD'],[100,'C'],[90,'XC'],[50,'L'],[40,'XL'],[10,'X'],[9,'IX'],[5,'V'],[4,'IV'],[1,'I']];if(/^\d+$/.test(s)){let n=+s;if(n<1||n>3999)throw Error('من 1 إلى 3999');return[['روماني',Q.reduce((o,[v,r])=>{while(n>=v){o+=r;n-=v}return o},'')]]}if(!/^M{0,3}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$/.test(s)||!s)throw Error('رقم روماني غير صالح');let i=0,n=0;for(const[v,r]of Q)while(s.startsWith(r,i)){n+=v;i+=r.length}return[['العدد',n]]});
+F('co','🎨','محول الألوان','<input type=color id=c value="#2f81f7"><input type=text id=t placeholder="#RRGGBB (اختياري)">',g=>{let h=g('t').value.trim();h=/^#?[0-9a-f]{6}$/i.test(h)?(h[0]=='#'?h:'#'+h):g('c').value;const r=parseInt(h.slice(1,3),16),q=parseInt(h.slice(3,5),16),b=parseInt(h.slice(5),16),x=Math.max(r,q,b)/255,n=Math.min(r,q,b)/255,l=(x+n)/2,d=x-n;let hh=0,s=0;if(d){s=d/(1-Math.abs(2*l-1));const m=x*255;hh=m==r?((q-b)/255/d)%6:m==q?(b-r)/255/d+2:(r-q)/255/d+4;hh=(hh*60+360)%360}return[['HEX',h.toUpperCase()],['RGB',`rgb(${r}, ${q}, ${b})`],['HSL',`hsl(${Math.round(hh)}, ${Math.round(s*100)}%, ${Math.round(l*100)}%)`]]});
+F('hj','🌙','التاريخ الهجري','<input type=date id=d>',g=>{const v=g('d').value,d=v?new Date(v+'T12:00'):new Date(),f=(c,o)=>new Intl.DateTimeFormat('ar-EG-u-ca-'+c,o).format(d);return[['ميلادي',f('gregory',{dateStyle:'full'})],['هجري (أم القرى)',f('islamic-umalqura',{dateStyle:'full'})],['هجري (حسابي)',f('islamic-civil',{dateStyle:'full'})],['ملاحظة','الحسابي ممكن يختلف يوم عن رؤية الهلال المحلية']]});
+F('pk','🎯','قرعة أسماء','<textarea id=n rows=4 placeholder="اسم في كل سطر"></textarea><button>اسحب</button>',g=>{const l=g('n').value.split('\n').map(x=>x.trim()).filter(Boolean);if(!l.length)throw Error('اكتب أسماء');return[['الفائز',l[RND(l.length)]]]},1);
+F('rn','🪙','نرد وعملة وأرقام','<input type=text id=a value=1 inputmode=numeric><input type=text id=b value=100 inputmode=numeric><button>ولّد</button>',g=>{const r=n=>RND(n),a=+g('a').value,b=+g('b').value;return[['رقم بين '+a+' و '+b,a+r(b-a+1)],['نرد',r(6)+1],['عملة',r(2)?'صورة':'كتابة']]},1);
+A('wc2','🌍','ساعات العالم',el=>{const z=['Africa/Cairo','Asia/Riyadh','Asia/Dubai','Asia/Baghdad','Europe/London','Europe/Paris','Europe/Istanbul','America/New_York','America/Los_Angeles','Asia/Kolkata','Asia/Tokyo','Australia/Sydney'];el.innerHTML=H('ساعات العالم','<div id=o></div>');const u=()=>$('#o',el).innerHTML=z.map(x=>row(x,new Date().toLocaleString('en-GB',{timeZone:x,dateStyle:'short',timeStyle:'medium'}))).join('');u();const iv=setInterval(u,1000);cl.push(()=>clearInterval(iv))});
+A('sw3','⏱','ساعة إيقاف',el=>{el.innerHTML=H('ساعة إيقاف','<div class=bx id=d style="background:#0a0d16;font-size:38px;font-family:monospace">00:00.00</div><button id=s>ابدأ</button> <button class=s id=l>لفة</button> <button class=s id=r>تصفير</button><div id=o></div>');let t0=0,acc=0,iv=0,L=[];const now=()=>acc+(t0?performance.now()-t0:0),f=ms=>String(Math.floor(ms/6e4)).padStart(2,'0')+':'+((ms%6e4)/1e3).toFixed(2).padStart(5,'0'),up=()=>$('#d',el).textContent=f(now());
+$('#s',el).onclick=e=>{if(t0){acc=now();t0=0;clearInterval(iv);e.target.textContent='كمل'}else{t0=performance.now();iv=setInterval(up,30);e.target.textContent='إيقاف'}};$('#l',el).onclick=()=>{L.push(f(now()));$('#o',el).innerHTML=L.map((x,i)=>row('لفة '+(i+1),x)).join('')};$('#r',el).onclick=()=>{t0=acc=0;clearInterval(iv);L=[];up();$('#o',el).innerHTML='';$('#s',el).textContent='ابدأ'};cl.push(()=>clearInterval(iv))});
+A('tm3','⏳','مؤقت تنازلي',el=>{el.innerHTML=H('مؤقت','<input type=text id=m value=1 inputmode=decimal placeholder="دقائق"><button id=g>ابدأ</button> <button class=s id=x>إيقاف</button><div class=bx id=d style="background:#0a0d16;font-size:38px;font-family:monospace">00:00</div>');let iv,end;const stop=()=>clearInterval(iv);cl.push(stop);$('#g',el).onclick=()=>{stop();$('#d',el).style.color='';end=Date.now()+(+$('#m',el).value||0)*6e4;iv=setInterval(()=>{const l=Math.max(0,end-Date.now()),s=Math.ceil(l/1e3);$('#d',el).textContent=String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');if(!l){stop();navigator.vibrate&&navigator.vibrate([300,100,300]);$('#d',el).style.color='#f85149'}},200)};$('#x',el).onclick=stop});
+
+/* ===== أمان وشبكات (10) ===== */
+F('hm','🧾','HMAC','<textarea id=m rows=2 placeholder="الرسالة"></textarea><input type=text id=k placeholder="المفتاح"><select id=a><option>SHA-256</option><option>SHA-1</option><option>SHA-512</option></select>',async g=>{const e=new TextEncoder(),k=await crypto.subtle.importKey('raw',e.encode(g('k').value),{name:'HMAC',hash:g('a').value},false,['sign']);return[['HMAC',hx(new Uint8Array(await crypto.subtle.sign('HMAC',k,e.encode(g('m').value))))]]});
+A('ae','🔒','تشفير AES-256',null);
+F('id','🆔','UUID ومفاتيح عشوائية','<button>ولّد</button>',()=>{const r=n=>crypto.getRandomValues(new Uint8Array(n));return[['UUID v4',crypto.randomUUID()],['مفتاح 128-bit (hex)',hx(r(16))],['مفتاح 256-bit (hex)',hx(r(32))],['مفتاح 256-bit (Base64)',btoa(String.fromCharCode(...r(32)))]]});
+F('fh','🗂','بصمة ملف','<input type=file id=f><p class=m>بتتحسب على جهازك، الملف مش بيترفع.</p>',async g=>{const f=g('f').files[0];if(!f)return[['اختار ملف','—']];if(f.size>268435456)throw Error('الملف أكبر من 256MB');const b=await f.arrayBuffer(),h=async a=>hx(new Uint8Array(await crypto.subtle.digest(a,b)));return[['الاسم',f.name],['الحجم',f.size+' bytes'],['SHA-256',await h('SHA-256')],['SHA-1',await h('SHA-1')],['SHA-512',await h('SHA-512')]]});
+F('fi','🔬','فاحص نوع الملف','<input type=file id=f><p class=m>بيقرا أول بايتات الملف (وأول جزء من محتواه لو كان نصياً) عشان يعطيك مؤشر تقريبي لنوعه الحقيقي، وممكن يطلع إنذار كاذب (مش بديل لفحص أمني).</p>',async g=>{const f=g('f').files[0];if(!f)return[['اختار ملف','—']];const h=hx(new Uint8Array(await f.slice(0,16).arrayBuffer())),S=[['89504e47','PNG'],['ffd8ff','JPEG'],['47494638','GIF'],['25504446','PDF'],['504b0304','ZIP/DOCX/XLSX/APK'],['4d5a','EXE/DLL (Windows)'],['7f454c46','ELF (Linux)'],['377abcaf271c','7-Zip'],['526172211a07','RAR'],['1f8b','GZIP'],['2321','سكربت (#!)'],['494433','MP3'],['fffb','MP3'],['4f676753','OGG'],['664c6143','FLAC'],['52494646','RIFF (WAV/WEBP/AVI)']];let t=(S.find(s=>h.startsWith(s[0]))||[])[1];if(!t&&h.slice(8,16)=='66747970')t='MP4/MOV';let sc=false;if(!t){const tx=new TextDecoder().decode(new Uint8Array(await f.slice(0,2048).arrayBuffer()));if(!/[\x00-\x08\x0e-\x1f]/.test(tx)){const P=[[/^\s*<\?php/i,'نص برمجي PHP'],[/@echo\s+off/i,'نص برمجي Batch'],[/\b(powershell|invoke-expression|invoke-webrequest|downloadstring)\b|\$env:/i,'نص برمجي PowerShell'],[/\b(wscript\.|createobject\s*\()/i,'نص برمجي VBScript'],[/<script[\s>]|<html[\s>]|<!doctype html/i,'صفحة HTML/JavaScript'],[/^\s*(import\s+[\w.]+\s*$|from\s+[\w.]+\s+import\s|def\s+\w+\s*\()/m,'نص برمجي Python']],p=P.find(x=>x[0].test(tx));if(p){t=p[1]+' (تقريبي)';sc=true}}}const bad=(t&&/EXE|ELF|سكربت/.test(t)&&!/\.(exe|dll|sys|scr|so|elf|bin|out|sh|py|pl|rb|js|command)$/i.test(f.name))||(sc&&/\.(jpe?g|png|gif|webp|bmp|pdf|docx?|xlsx?|pptx?|mp3|mp4|wav|avi|mov|zip|rar)$/i.test(f.name));return[['الاسم',f.name],['النوع حسب المتصفح',f.type||'؟'],['الحجم',f.size+' bytes'],['أول بايتات',h],['النوع الحقيقي (تقريبي، قد يكون إنذاراً كاذباً لنص يبدأ بـ MZ)',t||'غير معروف'],...(bad?[['تحذير',sc?'محتوى نص برمجي داخل ملف باسم/امتداد عادي!':'ملف تنفيذي باسم/امتداد مختلف!','bad']]:[])]});
+A('ex','🧹','مسح بيانات الصورة',el=>{el.innerHTML=H('مسح EXIF/الموقع من الصورة','<p class=m>الصورة بتتعاد رسمها على جهازك فبتتشال بيانات EXIF (زي موقع GPS). الجودة ممكن تقل شوية.</p><input type=file id=f accept="image/*"><div id=o></div>');$('#f',el).onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const bm=await createImageBitmap(f),c=document.createElement('canvas'),k=Math.min(1,Math.sqrt(16e6/(bm.width*bm.height)));c.width=Math.max(1,Math.round(bm.width*k));c.height=Math.max(1,Math.round(bm.height*k));const ty=f.type=='image/png'?'image/png':'image/jpeg',cx=c.getContext('2d');if(ty=='image/jpeg'){cx.fillStyle='#fff';cx.fillRect(0,0,c.width,c.height)}cx.drawImage(bm,0,0,c.width,c.height);c.toBlob(b=>{if(!b){$('#o',el).innerHTML=row('خطأ','تعذر إنشاء الصورة (قد تكون كبيرة جداً)','warn');return}const u=URL.createObjectURL(b);$('#o',el).innerHTML=`<img src="${u}" style="max-width:100%;border-radius:8px">`+row('الحجم قبل/بعد',f.size+' → '+b.size+' bytes')+`<a href="${u}" download="clean.${ty=='image/png'?'png':'jpg'}" style="color:#e8c766">تنزيل الصورة النظيفة</a>`},ty,.92)}catch(x){$('#o',el).innerHTML=row('خطأ','تعذر قراءة الصورة','warn')}}});
+F('dn','🌐','DNS Lookup','<input type=text id=d placeholder="example.com"><select id=t><option>A</option><option>AAAA</option><option>MX</option><option>TXT</option><option>NS</option><option>CNAME</option></select><button>بحث</button><p class=m>بيستخدم Cloudflare DNS-over-HTTPS.</p>',async g=>{const d=g('d').value.trim();if(!d)throw Error('اكتب دومين');const j=await(await fetch('https://cloudflare-dns.com/dns-query?name='+encodeURIComponent(d)+'&type='+encodeURIComponent(g('t').value),{headers:{accept:'application/dns-json'}})).json();return j.Answer?j.Answer.map(a=>[({1:'A',2:'NS',5:'CNAME',15:'MX',16:'TXT',28:'AAAA'}[a.type]||'type '+a.type)+' · TTL '+a.TTL,a.data]):[['الحالة','Status '+j.Status+(j.Status==3?' (الدومين غير موجود)':' (لا توجد سجلات)'),'warn']]},1);
+F('rc2','📡','اختبار الوصول لموقع','<input type=text id=u placeholder="https://example.com"><button>اختبر</button><p class=m>بيقيس زمن الاتصال من جهازك. مش بيقدر يقرا حالة الصفحة (قيد المتصفح).</p>',async g=>{let u=g('u').value.trim();if(/^http:/i.test(u))throw Error('روابط http:// غير مدعومة هنا، استخدم https://');if(!/^https?:/.test(u))u='https://'+u;const t=[];for(let i=0;i<3;i++){const s=performance.now();await fetch(u,{mode:'no-cors',cache:'no-store'});t.push(performance.now()-s)}return[['الوصول','الخادم رد (حالة الصفحة غير معروفة)','ok'],['الأزمنة',t.map(x=>Math.round(x)+'ms').join(', ')],['المتوسط',Math.round(t.reduce((a,b)=>a+b)/3)+' ms']]},1);
+F('cd','🧮','حاسبة الشبكة CIDR','<input type=text id=c value="192.168.1.10/24">',g=>{const[ip,p]=g('c').value.trim().split('/'),o=ip.split('.').map(Number),n=+p;if(o.length!=4||o.some(x=>!(x>=0&&x<=255))||!(n>=0&&n<=32))throw Error('صيغة غلط (مثال 192.168.1.10/24)');const a=(o[0]*16777216+o[1]*65536+o[2]*256+o[3])>>>0,m=n?(~0<<(32-n))>>>0:0,nw=(a&m)>>>0,bc=(nw|~m)>>>0,s=x=>[x>>>24,x>>>16&255,x>>>8&255,x&255].join('.');return[['الماسك',s(m)],['عنوان الشبكة',s(nw)],['البث',s(bc)],['أول مضيف',n<31?s(nw+1):s(nw)],['آخر مضيف',n<31?s(bc-1):s(bc)],['عدد المضيفين',n==32?1:n==31?2:Math.pow(2,32-n)-2]]});
+A('ui','🔗','فاحص الروابط',null);
+
+/* ===== معلومات الجهاز والمتصفح (16) ===== */
+I('ft','🧩','ميزات المتصفح',()=>{const n=navigator,w=window,c=document.createElement('canvas');return Object.entries({'Service Worker':'serviceWorker'in n,'WebGL':!!c.getContext('webgl'),'WebGL2':!!c.getContext('webgl2'),'WebGPU':!!n.gpu,'WebAssembly':typeof WebAssembly=='object','WebRTC':!!w.RTCPeerConnection,'Bluetooth':!!n.bluetooth,'WebUSB':!!n.usb,'Web Serial':!!n.serial,'WebHID':!!n.hid,'NFC':'NDEFReader'in w,'Geolocation':!!n.geolocation,'Notifications':'Notification'in w,'Push':'PushManager'in w,'Clipboard':!!n.clipboard,'Share':!!n.share,'Wake Lock':'wakeLock'in n,'Vibration':!!n.vibrate,'Battery':!!n.getBattery,'Gamepad':!!n.getGamepads,'TTS':'speechSynthesis'in w,'Speech Recognition':!!(w.SpeechRecognition||w.webkitSpeechRecognition),'MediaRecorder':!!w.MediaRecorder,'Screen Capture':!!(n.mediaDevices&&n.mediaDevices.getDisplayMedia),'File System Access':!!w.showOpenFilePicker,'EyeDropper':!!w.EyeDropper,'Passkeys':!!w.PublicKeyCredential,'Web Workers':!!w.Worker}).map(([k,v])=>ok(k,v))});
+I('cdc','🎞','الوسائط المدعومة',()=>{const v=document.createElement('video');return[['H.264','video/mp4; codecs="avc1.42E01E"'],['HEVC/H.265','video/mp4; codecs="hvc1.1.6.L93.B0"'],['VP8','video/webm; codecs="vp8"'],['VP9','video/webm; codecs="vp9"'],['AV1','video/mp4; codecs="av01.0.05M.08"'],['MP3','audio/mpeg'],['AAC','audio/mp4; codecs="mp4a.40.2"'],['Opus','audio/ogg; codecs="opus"'],['FLAC','audio/flac'],['WAV','audio/wav']].map(([k,m])=>{const r=v.canPlayType(m);return[k,r||'لا',r=='probably'?'ok':r?'':'warn']})});
+I('fn','🔤','الخطوط المتاحة',()=>{const c=document.createElement('canvas').getContext('2d'),w=f=>(c.font='72px '+f,c.measureText('mmMwWli汉ع').width),b=['monospace','sans-serif','serif'];return['Arial','Tahoma','Verdana','Times New Roman','Courier New','Georgia','Segoe UI','Roboto','Helvetica','Calibri','Cairo','Noto Sans Arabic','Noto Naskh Arabic','Amiri','Traditional Arabic','Arabic Typesetting','Consolas','Menlo','Impact','Comic Sans MS','Trebuchet MS'].map(f=>ok(f,b.some(x=>w(`"${f}",${x}`)!=w(x))))});
+I('vp','📱','العرض والنافذة (حي)',()=>{const s=screen,v=visualViewport;return[['النافذة',innerWidth+'×'+innerHeight],['الخارجية',outerWidth+'×'+outerHeight],['الشاشة',s.width+'×'+s.height],['المتاحة',s.availWidth+'×'+s.availHeight],['Zoom/Scale',v?v.scale.toFixed(2):'؟'],['الاتجاه',(s.orientation&&s.orientation.type)||'؟'],['DPR',devicePixelRatio]]},[[window,'resize']]);
+I('ds','🌈','الألوان والعرض',()=>mq([['sRGB','(color-gamut: srgb)'],['Display P3','(color-gamut: p3)'],['Rec.2020','(color-gamut: rec2020)'],['HDR','(dynamic-range: high)'],['ثيم داكن','(prefers-color-scheme: dark)'],['مؤشر دقيق (ماوس)','(pointer: fine)'],['مؤشر لمس','(pointer: coarse)'],['Hover متاح','(hover: hover)'],['تطبيق مثبت (PWA)','(display-mode: standalone)']]));
+I('a1','♿','إعدادات الوصول',()=>mq([['تقليل الحركة','(prefers-reduced-motion: reduce)'],['تباين عالي','(prefers-contrast: more)'],['ألوان إجبارية','(forced-colors: active)'],['ألوان معكوسة','(inverted-colors: inverted)'],['تقليل الشفافية','(prefers-reduced-transparency: reduce)'],['تقليل البيانات','(prefers-reduced-data: reduce)']]));
+I('gl','🖼','تفاصيل WebGL',()=>{const g=document.createElement('canvas').getContext('webgl');if(!g)throw Error('WebGL غير متاح');const x=g.getExtension('WEBGL_debug_renderer_info'),p=k=>g.getParameter(k);return[['VERSION',p(g.VERSION)],['GLSL',p(g.SHADING_LANGUAGE_VERSION)],['Vendor',x?p(x.UNMASKED_VENDOR_WEBGL):p(g.VENDOR)],['Renderer',x?p(x.UNMASKED_RENDERER_WEBGL):p(g.RENDERER)],['Max Texture',p(g.MAX_TEXTURE_SIZE)],['Max Viewport',[...p(g.MAX_VIEWPORT_DIMS)].join('×')],['Max Vertex Attribs',p(g.MAX_VERTEX_ATTRIBS)],['Extensions',g.getSupportedExtensions().length],['WebGL2',yn(!!document.createElement('canvas').getContext('webgl2'))]]});
+I('gp','🎮','WebGPU',async()=>{if(!navigator.gpu)throw Error('WebGPU غير مدعوم');const a=await navigator.gpu.requestAdapter();if(!a)throw Error('مفيش adapter');const i=a.info||(a.requestAdapterInfo&&await a.requestAdapterInfo())||{};return[['Vendor',i.vendor||'مخفي'],['Architecture',i.architecture||'مخفي'],['Device',i.device||'مخفي'],['Description',i.description||'مخفي'],['Features',a.features.size],['maxTextureDimension2D',a.limits.maxTextureDimension2D],['maxBufferSize',a.limits.maxBufferSize]]});
+I('mm','🧠','ذاكرة المتصفح',()=>{const m=performance.memory;if(!m)throw Error('performance.memory متاحة في كروم/إدج بس');const f=b=>(b/1048576).toFixed(1)+' MB';return[['JS Heap المستخدم',f(m.usedJSHeapSize)],['JS Heap الكلي',f(m.totalJSHeapSize)],['حد الـHeap',f(m.jsHeapSizeLimit)],['رام الجهاز (تقريبي)',navigator.deviceMemory?'≥ '+navigator.deviceMemory+' GB':'؟']]});
+I('nv','⏲','أداء تحميل الصفحة',()=>{const n=performance.getEntriesByType('navigation')[0];if(!n)throw Error('غير متاح');const f=x=>Math.round(x)+' ms',p=performance.getEntriesByName('first-contentful-paint')[0];return[['DNS',f(n.domainLookupEnd-n.domainLookupStart)],['TCP',f(n.connectEnd-n.connectStart)],['TTFB',f(n.responseStart-n.requestStart)],['تحميل المحتوى',f(n.responseEnd-n.responseStart)],['DOMContentLoaded',f(n.domContentLoadedEventEnd)],['Load',f(n.loadEventEnd)],['FCP',p?f(p.startTime):'؟'],['البروتوكول',n.nextHopProtocol||'؟'],['الحجم المنقول',n.transferSize+' bytes']]});
+const NL=[];['online','offline'].forEach(e=>addEventListener(e,()=>NL.unshift(new Date().toLocaleTimeString()+' '+e)));
+I('nm','📶','مراقب الاتصال',()=>{const c=navigator.connection||{};return[['الحالة',navigator.onLine?'متصل':'غير متصل',navigator.onLine?'ok':'bad'],['النوع',c.effectiveType||'؟'],['Downlink',c.downlink?c.downlink+' Mbps':'؟'],['RTT',c.rtt!=null?c.rtt+' ms':'؟'],['Data Saver',yn(c.saveData)],...NL.slice(0,5).map(x=>['حدث',x])]},[[window,'online'],[window,'offline']]);
+I('sv','🛰','Service Workers والكاش',async()=>{const r=navigator.serviceWorker?await navigator.serviceWorker.getRegistrations():[],k=window.caches?await caches.keys():[];return[['Service Workers',r.length],...r.map(x=>['scope',x.scope]),['Cache Storage',k.length],...k.map(x=>['cache',x])]});
+I('ap','🛂','كل الصلاحيات',async()=>{const o=[];for(const p of['geolocation','notifications','camera','microphone','clipboard-read','clipboard-write','midi','persistent-storage','push','screen-wake-lock','accelerometer','gyroscope','magnetometer','background-sync','storage-access']){try{const s=await navigator.permissions.query({name:p});o.push([p,s.state,s.state=='granted'?'warn':s.state=='denied'?'ok':''])}catch(e){o.push([p,'غير مدعوم'])}}return o});
+I('in','🈯','اللغة والتقويم',()=>{const o=Intl.DateTimeFormat().resolvedOptions(),n=new Date(),l=navigator.language;return[['اللغة',l],['التقويم',o.calendar],['نظام الأرقام',o.numberingSystem],['المنطقة الزمنية',o.timeZone],['الفرق عن UTC',-n.getTimezoneOffset()/60+' ساعة'],['التاريخ',n.toLocaleDateString(l,{dateStyle:'full'})],['رقم',(1234567.891).toLocaleString(l)],['عملة (EGP)',(1234.5).toLocaleString(l,{style:'currency',currency:'EGP'})],['نسبة',(0.256).toLocaleString(l,{style:'percent'})]]});
+A('tt','🗣','أصوات النطق',el=>{el.innerHTML=H('تحويل نص لكلام','<textarea id=t rows=2>مرحبا بك</textarea><select id=v></select><button id=b>انطق</button><p class=m id=c></p>');const s=window.speechSynthesis;if(!s)return $('#c',el).textContent='غير مدعوم';const f=()=>{const V=s.getVoices();$('#v',el).innerHTML=V.map((x,i)=>`<option value=${i}>${esc(x.name)} (${x.lang})</option>`).join('');$('#c',el).textContent=V.length+' صوت متاح'};f();s.onvoiceschanged=f;$('#b',el).onclick=()=>{const u=new SpeechSynthesisUtterance($('#t',el).value);u.voice=s.getVoices()[$('#v',el).value];s.speak(u)};cl.push(()=>s.cancel())});
+A('wk','☀️','منع انطفاء الشاشة',el=>{el.innerHTML=H('Wake Lock','<button id=b>تفعيل</button><div id=o></div>');let w;cl.push(()=>w&&w.release());$('#b',el).onclick=async e=>{try{if(w){await w.release();w=0;e.target.textContent='تفعيل';$('#o',el).innerHTML=row('الحالة','متوقف')}else{w=await navigator.wakeLock.request('screen');e.target.textContent='إيقاف';$('#o',el).innerHTML=row('الحالة','شغال — الشاشة مش هتنطفي','ok')}}catch(x){$('#o',el).innerHTML=row('خطأ','غير مدعوم أو مرفوض','warn')}}});
+
+/* ===== اختبارات تفاعلية (8) ===== */
+A('ms','🖱','فحص الماوس',el=>{el.innerHTML=H('فحص الماوس','<div class=bx id=p style="background:#0a0d16;border:1px dashed rgba(212,175,55,.3)">حرّك واضغط ودوّر العجلة</div><div id=o></div>');const s={},p=$('#p',el),u=e=>{s.x=e.clientX;s.y=e.clientY;$('#o',el).innerHTML=Object.entries(s).map(([k,v])=>row(k,v)).join('')};p.onmousemove=u;p.onmousedown=e=>{s['الأزرار']=e.buttons;s['الزر']=['يسار','وسط','يمين'][e.button]||e.button;u(e)};p.ondblclick=e=>{s['نقر مزدوج']=(s['نقر مزدوج']||0)+1;u(e)};p.oncontextmenu=e=>e.preventDefault();p.onwheel=e=>{e.preventDefault();s['عجلة Δy']=Math.round(e.deltaY);u(e)}});
+A('rt','⚡','زمن رد الفعل',el=>{el.innerHTML=H('اختبار زمن رد الفعل','<div class=bx id=b style="background:#1a1f2e">اضغط للبدء</div><div id=o class=m></div>');let st=0,tm,res=[];const b=$('#b',el),rs=t=>{st=0;b.style.background='#1a1f2e';b.textContent=t};b.onclick=()=>{if(!st){b.style.background='#7a1f1f';b.textContent='استنى الأخضر...';st=-1;tm=setTimeout(()=>{b.style.background='#1f7a3a';b.textContent='اضغط الآن!';st=performance.now()},1500+Math.random()*2500)}else if(st<0){clearTimeout(tm);rs('بدري! اضغط للمحاولة تاني')}else{const r=Math.round(performance.now()-st);res.push(r);rs(r+' ms — اضغط تاني');$('#o',el).textContent='آخر المحاولات: '+res.slice(-5).join(', ')+' | المتوسط: '+Math.round(res.reduce((a,b)=>a+b)/res.length)+' ms'}};cl.push(()=>clearTimeout(tm))});
+A('ty','⌨','سرعة الكتابة',el=>{const S=['الصبر مفتاح الفرج والعمل الجاد طريق النجاح','the quick brown fox jumps over the lazy dog'];el.innerHTML=H('سرعة الكتابة','<select id=s><option value=0>عربي</option><option value=1>English</option></select><p id=q></p><input type=text id=i style="direction:inherit" placeholder="ابدأ الكتابة"><div id=o></div>');let t0=0;const q=$('#q',el),n=()=>{q.textContent=S[$('#s',el).value];$('#i',el).value='';t0=0};$('#s',el).onchange=n;n();$('#i',el).oninput=e=>{const v=e.target.value,s=q.textContent;if(!t0)t0=performance.now();if(v.length>=s.length){const m=(performance.now()-t0)/6e4;let c=0;for(let k=0;k<s.length;k++)v[k]==s[k]&&c++;$('#o',el).innerHTML=row('السرعة',Math.round(s.length/5/m)+' WPM')+row('الدقة',Math.round(c/s.length*100)+'%');e.target.value='';t0=0}}});
+A('cp','👉','سرعة النقر',el=>{el.innerHTML=H('سرعة النقر (5 ثواني)','<div class=bx id=b style="background:#1a1f2e">اضغط للبدء</div><div id=o></div>');let n=0,s=0,tm;const b=$('#b',el);b.onclick=()=>{if(s==2)return;if(!s){s=1;n=0;tm=setTimeout(()=>{s=2;b.textContent='خلص!';$('#o',el).innerHTML=row('النقرات',n)+row('CPS',(n/5).toFixed(1));setTimeout(()=>s=0,700)},5000)}n++;b.textContent=n};cl.push(()=>clearTimeout(tm))});
+A('lv','📐','ميزان مائي',el=>{el.innerHTML=H('ميزان مائي','<p class=m>حط الموبايل مسطح على السطح. القراءة تقريبية وبتختلف من جهاز لجهاز.</p><button id=b>تشغيل</button><div class=bx id=d style="background:#0a0d16"><div id=k style="position:absolute;width:26px;height:26px;border-radius:50%;background:#3fb950"></div></div><div id=o></div>');const h=e=>{const b=e.beta||0,m=e.gamma||0,d=$('#d',el),k=$('#k',el),ok2=Math.abs(b)<1&&Math.abs(m)<1;k.style.left=Math.max(0,Math.min(d.clientWidth-26,d.clientWidth/2-13+m*3))+'px';k.style.top=Math.max(0,Math.min(d.clientHeight-26,d.clientHeight/2-13+b*3))+'px';$('#o',el).innerHTML=row('ميل أمامي/خلفي',b.toFixed(1)+'°')+row('ميل جانبي',m.toFixed(1)+'°')+row('الحالة',ok2?'مستوي ✔':'مش مستوي',ok2?'ok':'warn')};cl.push(()=>removeEventListener('deviceorientation',h));$('#b',el).onclick=async()=>{try{DeviceOrientationEvent.requestPermission&&await DeviceOrientationEvent.requestPermission()}catch(e){}addEventListener('deviceorientation',h)}});
+A('fl','🔦','كشاف الشاشة',el=>{el.innerHTML=H('كشاف الشاشة','<p class=m>شاشة بيضاء كاملة (ارفع السطوع بنفسك). اضغط عليها للخروج.</p><button id=b>تشغيل</button>');$('#b',el).onclick=async()=>{const d=document.createElement('div');d.style.cssText='position:fixed;inset:0;background:#fff;z-index:99';document.body.append(d);let w;try{w=await navigator.wakeLock.request('screen')}catch(e){}d.onclick=()=>{d.remove();w&&w.release()}}});
+A('tn','🎵','مولّد نغمات',el=>{el.innerHTML=H('مولّد نغمات','<p class=m>⚠ ابدأ بصوت واطي.</p><label class=o>التردد <input type=range id=f min=20 max=12000 value=440 style="flex:1"><span id=fv>440</span> Hz</label><select id=w><option>sine</option><option>square</option><option>sawtooth</option><option>triangle</option></select><label class=o>الصوت <input type=range id=v min=0 max=30 value=5 style="flex:1"></label><button id=b>تشغيل</button>');let ac,o,g;const st=()=>{o&&o.stop();ac&&ac.close();o=ac=null;$('#b',el).textContent='تشغيل'};cl.push(st);$('#f',el).oninput=e=>{$('#fv',el).textContent=e.target.value;o&&(o.frequency.value=+e.target.value)};$('#v',el).oninput=e=>g&&(g.gain.value=e.target.value/100);$('#w',el).onchange=e=>o&&(o.type=e.target.value);$('#b',el).onclick=()=>{if(ac)return st();ac=new AudioContext();o=ac.createOscillator();g=ac.createGain();o.type=$('#w',el).value;o.frequency.value=+$('#f',el).value;g.gain.value=$('#v',el).value/100;o.connect(g).connect(ac.destination);o.start();$('#b',el).textContent='إيقاف'}});
+A('rc','⏺','مسجل صوت',el=>{el.innerHTML=H('مسجل صوت','<p class=m>التسجيل بيفضل على جهازك ومش بيتبعت.</p><button id=b>ابدأ التسجيل</button><div id=o></div>');let mr,s;cl.push(()=>{s&&s.getTracks().forEach(t=>t.stop())});$('#b',el).onclick=async e=>{if(mr&&mr.state=='recording'){mr.stop();e.target.textContent='ابدأ التسجيل';return}try{s=await navigator.mediaDevices.getUserMedia({audio:true});const ch=[];mr=new MediaRecorder(s);mr.ondataavailable=x=>ch.push(x.data);mr.onstop=()=>{s.getTracks().forEach(t=>t.stop());const bl=new Blob(ch,{type:mr.mimeType}),u=URL.createObjectURL(bl);$('#o',el).innerHTML=`<audio controls src="${u}" style="width:100%"></audio><a href="${u}" download="recording" style="color:#e8c766">تنزيل (${(bl.size/1024).toFixed(0)} KB)</a>`};mr.start();e.target.textContent='إيقاف'}catch(x){$('#o',el).innerHTML=row('خطأ','مرفوض أو غير متاح','warn')}}});
+
+/* ===== الشبكة + البحث ===== */
+$('#gd').innerHTML=T.map((t,i)=>`<button data-i=${i}><b>${t[1]}</b>${t[2]}</button>`).join('');
+const q=document.createElement('input');q.type='search';q.placeholder='🔎 ابحث في '+T.length+' أداة...';q.oninput=()=>{const s=q.value.trim().toLowerCase();[...$('#gd').children].forEach(b=>b.style.display=!s||b.textContent.toLowerCase().includes(s)?'':'none')};$('#hm').insertBefore(q,$('#gd'));
+})();
+</script><script>
+(()=>{
+'use strict';
+/* ====== إعدادات صاحب الموقع (عدّلها هنا فقط) ====== */
+const CFG={
+  pay:'07779982177',            // رقم استلام رصيد آسيا
+  price:2000,                   // سعر Golden بالرصيد
+  cur:'رصيد آسيا',
+  name:'H-G-P Golden G-v1',
+  contact:'',                   // رابط تواصل اختياري بعد الدفع، مثال: https://wa.me/9647XXXXXXXXX (فاضي = ما يظهر زر)
+  revoked:[],                   // معرّفات عملاء تريد إلغاء تفعيلهم، مثال: ['ZX-AB12-CD34']
+  pub:{kty:'EC',crv:'P-256',x:'uDhKnxN1KGPypsTP1RVlR6pyV-YmfaYzSmNE5gXMt-A',y:'AZ80ov01RcbBT5fd-QnRkqmRf_lQ1iMyEBkNMOFKSnQ',ext:true}   // المفتاح العام للتحقق من مفاتيح التفعيل
+};
+
+/* ====== أدوات عامة ====== */
+const enc=new TextEncoder(),dec=new TextDecoder();
+const ub64u=s=>{s=s.replace(/-/g,'+').replace(/_/g,'/');return Uint8Array.from(atob(s+'='.repeat((4-s.length%4)%4)),c=>c.charCodeAt(0))};
+const b64=u=>{let s='';for(let i=0;i<u.length;i+=8192)s+=String.fromCharCode(...u.subarray(i,i+8192));return btoa(s)};
+const ub=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
+const LS={
+  raw(k){try{return localStorage.getItem(k)}catch(e){return null}},
+  setRaw(k,v){try{localStorage.setItem(k,v);return true}catch(e){return false}},
+  del(k){try{localStorage.removeItem(k)}catch(e){}},
+  get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch(e){return d}},
+  set(k,v){return LS.setRaw(k,JSON.stringify(v))}
+};
+const copy=async t=>{try{await navigator.clipboard.writeText(t);return true}catch(e){try{const a=document.createElement('textarea');a.value=t;a.style.cssText='position:fixed;opacity:0';document.body.append(a);a.select();const ok=document.execCommand('copy');a.remove();return ok}catch(_){return false}}};
+const flash=(b,t='تم ✔')=>{const o=b.dataset.o||b.textContent;b.dataset.o=o;b.textContent=t;clearTimeout(b._t);b._t=setTimeout(()=>b.textContent=o,1300)};
+const dl=(name,text,type='text/plain')=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text],{type}));a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),4000)};
+const fnum=n=>Number(n).toLocaleString('en');
+const tool=(id,fn)=>{const t=T.find(x=>x[0]===id);if(!t)throw Error('tool '+id);t[3]=fn};
+const addTool=(id,ico,title,fn)=>T.push([id,ico,title,fn]);
+
+document.head.append(Object.assign(document.createElement('style'),{textContent:`
+.zb{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 14px;margin:10px 0}.zb b{color:var(--g2)}
+.pl{position:relative}.pl.on{border-color:var(--g);box-shadow:0 0 0 1px var(--g),0 12px 34px rgba(0,0,0,.4)}
+.pl ul{margin:6px 0 10px;padding-inline-start:18px;color:#cfd6e6;font-size:13.5px}.pl li{margin:2px 0}
+.pl .tg{position:absolute;top:12px;inset-inline-end:14px;font-size:11px;padding:2px 9px;border-radius:99px;background:rgba(212,175,55,.15);color:var(--g2);border:1px solid var(--b)}
+.pl.gold{border-color:rgba(243,217,139,.6);background:linear-gradient(160deg,rgba(212,175,55,.13),var(--s))}
+.price{font-size:26px;font-weight:800;color:var(--g2)}.mono{font-family:ui-monospace,Menlo,Consolas,monospace;direction:ltr;unicode-bidi:plaintext;overflow-wrap:anywhere}
+.idb{display:block;background:rgba(0,0,0,.35);border:1px dashed var(--b);border-radius:10px;padding:8px 10px;margin:6px 0;font-size:15px;letter-spacing:1px;text-align:left}
+.step{display:flex;gap:10px;margin:8px 0}.step>i{flex:none;width:24px;height:24px;border-radius:50%;background:var(--g);color:#1a1405;font-style:normal;font-weight:800;text-align:center;line-height:24px;font-size:13px}
+.lk{opacity:.55}.bar2{height:8px;border-radius:6px;background:rgba(255,255,255,.07);overflow:hidden;margin:4px 0}.bar2 i{display:block;height:100%;background:linear-gradient(90deg,var(--g),var(--ok))}
+`}));
+
+/* ====== الباقات والحدود ====== */
+const today=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
+const weekId=()=>{const d=new Date();d.setDate(d.getDate()-d.getDay());return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
+const PL={
+  low:{n:'Low',ico:'🟢',lim:Infinity,lvl:1},
+  medium:{n:'Medium',ico:'🟡',lim:500,per:'w',lvl:2},
+  high:{n:'High',ico:'🟠',lim:50,per:'d',lvl:3},
+  golden:{n:'Golden G-v1',ico:'👑',lim:250,per:'d',lvl:4}
+};
+let S=LS.get('zx.s',{});if(!S||typeof S!='object'||Array.isArray(S))S={};
+S.plan=PL[S.plan]?S.plan:'low';if(!S.u||typeof S.u!='object')S.u={};if(typeof S.mask!='boolean')S.mask=null;
+const save=()=>LS.set('zx.s',S);
+const win=p=>PL[p].per=='w'?weekId():today();
+const used=p=>{const u=S.u[p];return u&&u.w===win(p)&&u.n>0?u.n:0};
+const left=p=>Math.max(0,PL[p].lim-used(p));
+const bump=p=>{if(PL[p].lim===Infinity)return;const w=win(p),u=S.u[p];S.u[p]=u&&u.w===w?{w,n:u.n+1}:{w,n:1};save()};
+
+/* معرّف الجهاز (يُستخدم لربط مفتاح التفعيل) */
+const AL='ABCDEFGHJKLMNPQRSTUVWXYZ23456789',IDRE=/^ZX-[A-Z2-9]{4}-[A-Z2-9]{4}$/;
+const newId=()=>{const p=()=>Array.from({length:4},()=>AL[RND(AL.length)]).join('');return'ZX-'+p()+'-'+p()};
+let ID=LS.raw('zx.id');if(!IDRE.test(ID||'')){ID=newId();LS.setRaw('zx.id',ID)}
+try{navigator.storage&&navigator.storage.persist&&navigator.storage.persist()}catch(e){}
+
+let GOLD=false;
+const verifyKey=async(key,id)=>{
+  try{
+    key=String(key||'').trim().replace(/\s+/g,'');
+    const m=/^ZXK1\.([\w-]+)\.([\w-]+)$/.exec(key);if(!m)return{ok:false,msg:'صيغة المفتاح غير صحيحة'};
+    const pk=await crypto.subtle.importKey('jwk',CFG.pub,{name:'ECDSA',namedCurve:'P-256'},false,['verify']);
+    const good=await crypto.subtle.verify({name:'ECDSA',hash:'SHA-256'},pk,ub64u(m[2]),enc.encode('ZXK1.'+m[1]));
+    if(!good)return{ok:false,msg:'المفتاح غير أصلي'};
+    const p=JSON.parse(dec.decode(ub64u(m[1])));
+    if(p.p!=='golden')return{ok:false,msg:'المفتاح مو لباقة Golden'};
+    if(p.exp&&(p.exp>1e11?p.exp:p.exp*1000)<Date.now())return{ok:false,keep:true,msg:'انتهت صلاحية المفتاح'};
+    if(p.id!==id)return{ok:false,keep:true,msg:'المفتاح مربوط بمعرّف جهاز ثاني: '+String(p.id).slice(0,14)+' — لو ده معرّفك القديم استخدم «استرجاع معرّف قديم»'};
+    if(CFG.revoked.includes(p.id))return{ok:false,msg:'هذا المفتاح اتلغى'};
+    return{ok:true,p};
+  }catch(e){return{ok:false,transient:true,msg:'تعذر التحقق من المفتاح (خطأ مؤقت)'}}
+};
+const pubFp=async()=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',enc.encode(CFG.pub.x+CFG.pub.y)))].slice(0,8).map(b=>b.toString(16).padStart(2,'0')).join('');
+
+const eff=()=>{const p=S.plan;if(p==='golden'&&!GOLD)return'low';return left(p)>0?p:'low'};
+const lvl=()=>PL[eff()].lvl;
+const maskOn=()=>lvl()>=3&&S.mask!==false;
+const GOLDT=new Set(['vault','totp','pwnb','panic']),LVLT=new Set(['gen','ui','audit','rep']);
+
+/* ====== التشفير (AES-256-GCM + PBKDF2) ====== */
+const ITER=600000;
+const dk=async(pw,salt,it,nf=1)=>crypto.subtle.deriveKey({name:'PBKDF2',salt,iterations:it,hash:'SHA-256'},await crypto.subtle.importKey('raw',enc.encode(nf?String(pw).normalize('NFC'):pw),'PBKDF2',false,['deriveKey']),{name:'AES-GCM',length:256},false,['encrypt','decrypt']);
+const aesEnc=async(text,pw)=>{const s=crypto.getRandomValues(new Uint8Array(16)),iv=crypto.getRandomValues(new Uint8Array(12)),c=new Uint8Array(await crypto.subtle.encrypt({name:'AES-GCM',iv},await dk(pw,s,ITER),enc.encode(text))),o=new Uint8Array(31+c.length);o.set([90,88,50]);o.set(s,3);o.set(iv,19);o.set(c,31);return b64(o)};
+const aesDec=async(b,pw)=>{const u=ub(b.trim().replace(/\s+/g,''));
+  if(u[0]==90&&u[1]==88&&u[2]==50){for(const nf of[1,0]){try{return dec.decode(await crypto.subtle.decrypt({name:'AES-GCM',iv:u.slice(19,31)},await dk(pw,u.slice(3,19),ITER,nf),u.slice(31)))}catch(e){}}}
+  for(const nf of[1,0]){try{return dec.decode(await crypto.subtle.decrypt({name:'AES-GCM',iv:u.slice(16,28)},await dk(pw,u.slice(0,16),250000,nf),u.slice(28)))}catch(e){if(!nf)throw e}}
+};
+
+/* ====== تحليل كلمة السر ====== */
+const COMMON=('123456 password 12345678 qwerty 123456789 12345 1234 111111 1234567 dragon 123123 baseball abc123 football monkey letmein 696969 shadow master 666666 qwertyuiop 123321 mustang 1234567890 michael 654321 superman 1qaz2wsx 7777777 121212 000000 qazwsx 123qwe killer trustno1 jordan jennifer zxcvbnm asdfgh hunter buster soccer harley batman andrew tigger sunshine iloveyou 2000 charlie robert thomas hockey ranger daniel starwars 112233 george computer michelle jessica pepper 1111 zxcvbn 555555 11111111 131313 freedom 777777 pass maggie 159753 aaaaaa ginger princess joshua cheese amanda summer love ashley nicole chelsea biteme matthew access yankees 987654321 dallas austin thunder taylor matrix admin welcome login passw0rd p@ssw0rd password1 password123 qwerty123 iloveyou1 admin123 root toor test guest 00000000 asdasd 123abc abcd1234 mohammed muhammad ahmed ali hassan hussein baghdad iraq basra erbil 1q2w3e4r 1q2w3e 12341234 11223344 987654 abc123456 qwe123 a1b2c3 zaq12wsx football1 whatever secret hello hello123 azerty 0000 1212 2580 5555 pokemon naruto alexander 1990 1234qwer qwer1234 asdf1234 password12 password1234 welcome1 welcome123 admin1234 iloveyou123 letmein123 monkey123 dragon123 master123 sunshine1 princess1 football123 baseball1 superman1 batman123 qwerty1234 qwerty12345 abcd123 abc12345 123456a a123456 1q2w3e4r5t zxcvbnm123 asdfghjkl 123456789a 1234567891 0987654321 147258369 741852963 963852741 111222333 123654789 password! p@ssword p@ssw0rd1 passw0rd1 changeme default test123 test1234 user1234 love1234 hello1234 ahmed123 ali12345 mohammed123 muhammad123 hassan123 hussein123 iraq1234 baghdad123 zilus zilusx qwertyui qwerty1 qwerty123456 qazwsxedc 1qazxsw2 zaq1xsw2 q1w2e3r4 q1w2e3r4t5 asdfghjk asdf123 asdfgh123 zxcvbn123 qweasd qweasdzxc qwerasdf 1234abcd abcd12345 abc1234 abcabc12 mypassword mypass pass123 pass1234 pa55word pa55w0rd password01 password11 password99 password2 password3 passpass secret123 super123 superman123 spiderman iloveu iloveyou2 iloveme loveyou lover123 lovely myspace1 facebook instagram snapchat whatsapp telegram tiktok youtube google gmail123 yahoo123 hotmail letmein1 welcome2 changeme1 administrator root123 user123 guest123 demo123 temp123 testtest sample123 abc123abc 12345abc 1234567a 12345678a 123456aa 123456abc 111111a aaa111 aaaa1111 a1234567 a12345678 z1234567 q1234567 1q2w3e4r5 qaz123 wsx123 zxc123 asd123 qwe12345 qweqwe123 john david james william richard joseph charles chris mark paul steven kevin brian edward ronald anthony jason jeffrey gary ryan jacob nicholas eric jonathan stephen larry justin scott brandon benjamin samuel frank gregory raymond patrick jack dennis jerry tyler aaron jose adam nathan henry zachary douglas peter kyle noah ethan jeremy walter christian keith roger terry sean arthur lawrence dylan jesse bryan billy bruce gabriel logan albert willie eugene russell vincent philip bobby johnny bradley mary patricia linda barbara elizabeth maria susan margaret dorothy lisa nancy karen betty helen sandra donna carol ruth sharon laura sarah kimberly deborah shirley cynthia angela melissa brenda anna rebecca virginia kathleen pamela martha stephanie carolyn christine marie janet catherine frances alice julie heather teresa doris gloria evelyn cheryl katherine emily rachel victoria olivia emma sophia isabella mohamed mohammad muhammed ahmad abdullah abdulrahman omar othman osman hasan hussain husain haider hayder abbas karar karrar mustafa mostafa yousif youssef yusuf ibrahim ismail khalid khaled walid waleed tariq tarek yaser yasser yasir salman sultan faisal fahad bader majid mahdi murtadha nasser nizar noor hadi hamza hamid hamad rashid raed rayan sajad sajjad ammar amir ameer basim jawad jaafar jafar laith luay mazin qasim ridha shakir fatima fatma zahra zainab zaynab zeinab maryam mariam marwa hiba huda hoda nada noura rasha reem samar shahad shaimaa zahraa ruqaya raghad layla leila lina lamia maha manar najaf karbala mosul kirkuk sulaymaniyah duhok nasiriyah amarah kufa samarra tikrit ramadi fallujah babylon baghdad1 baghdad2024 baghdad2025 baghdad2026 iraq2024 iraq2025 iraq2026 iraq123 basra123 erbil123 kurdistan dubai cairo riyadh jeddah mecca madina kuwait qatar bahrain amman beirut damascus syria lebanon egypt yemen oman palestine barcelona realmadrid madrid liverpool arsenal manchester juventus bayern messi ronaldo neymar mbappe salah zidane maradona cristiano messi10 ronaldo7 zawraa shorta talaba jawiya hilal nassr ahli angel angels baby babygirl honey sweet sweetie darling queen prince lion tiger eagle falcon wolf darkness black white blue green golden silver diamond star stars moon sunny skyline fire flame water earth wind rain snow winter spring autumn january february march april june july august september october november december monday tuesday wednesday thursday friday saturday sunday family friend friends forever happy lucky money dollar power hacker cool super ninja warrior soldier gamer player gaming music guitar piano flower garden house home mother father brother sister school student teacher doctor engineer mercedes toyota honda tesla iphone samsung android windows apple banana orange cherry coffee chocolate pizza burger bismillah allah mashallah inshallah alhamdulillah habibi habibti yaali yahussein yazahra محمد احمد علي حسين حسن عباس زينب فاطمة مريم سارة نور بغداد العراق البصرة كربلاء النجف الموصل اربيل كركوك حبيبي حبيبتي الله يارب ياعلي ياحسين ياعباس كلمةالسر باسورد').split(' ');
+const RANK=new Map();COMMON.forEach((w,i)=>{if(!RANK.has(w))RANK.set(w,i+1)});
+const LEET={'@':'a','4':'a','8':'b','3':'e','1':'i','!':'i','0':'o','$':'s','5':'s','7':'t','+':'t'};
+const unleet=s=>[...s].map(c=>LEET[c]||c).join('');
+const ROWS=['qwertyuiop','asdfghjkl','zxcvbnm','1234567890','ضصثقفغعهخحجد','شسيبلاتنمكط','ئءؤرلاىةوزظ'];
+const isKbd=s=>s.length>=4&&ROWS.some(r=>r.includes(s)||[...r].reverse().join('').includes(s));
+/* كلمة طبيعية الشكل (حتى لو مش في القاموس): نسبة حروف علة معقولة وبدون تجمعات صوامت غريبة */
+const wordish=s=>{const v=(s.match(/[aeiouy]/g)||[]).length/s.length;return v>=.3&&v<=.65&&!/[^aeiouy]{4}/.test(s)&&!/(.)\1\1/.test(s)};
+const card=pw=>{let c=0;/[a-z]/.test(pw)&&(c+=26);/[A-Z]/.test(pw)&&(c+=26);/\d/.test(pw)&&(c+=10);/[\x20-\x2f\x3a-\x40\x5b-\x60\x7b-\x7e]/.test(pw)&&(c+=33);/[^\x00-\x7f]/.test(pw)&&(c+=40);return c||10};
+const dateLike=s=>{const v=(d,m)=>d>=1&&d<=31&&m>=1&&m<=12,x=(a,b)=>+s.slice(a,b),y=t=>/^(19|20)/.test(t);if(s.length==8)return v(x(0,2),x(2,4))&&y(s.slice(4))||v(x(6,8),x(4,6))&&y(s.slice(0,4))||v(x(2,4),x(0,2))&&y(s.slice(4));if(s.length==6)return v(x(0,2),x(2,4))||v(x(4,6),x(2,4));return false};
+const pwAnalyze=(pw,full)=>{
+  const ch=[...pw].slice(0,100),n=ch.length;if(!n)return null;
+  const C=card(ch.join('')),lo=ch.map(c=>c.toLowerCase()),best=Array(n+1).fill(null);best[0]={g:1,p:-1,t:''};
+  for(let j=0;j<n;j++){
+    best[j+1]={g:best[j].g*C,p:j,t:'brute'};
+    for(let i=0;i<=j;i++){
+      const len=j-i+1,sub=lo.slice(i,j+1).join(''),raw=ch.slice(i,j+1).join(''),cs=[];
+      if(RANK.has(sub)){let g=RANK.get(sub);if(raw!==sub)g*=raw===sub[0].toUpperCase()+sub.slice(1)?2:4;cs.push([g,'dict'])}
+      if(len>=5&&len<=24&&/^[a-z]+$/.test(sub)&&wordish(sub)&&(raw===sub||raw===sub[0].toUpperCase()+sub.slice(1)))cs.push([Math.pow(4.5,len)*(raw!==sub?2:1),'word']);
+      if(full){const u=unleet(sub);if(u!==sub&&RANK.has(u))cs.push([RANK.get(u)*(raw!==sub?4:2),'leet'])}
+      if(len>=3&&[...sub].every(c=>c===[...sub][0]))cs.push([Math.max(10,card([...sub][0]))*len,'rep']);
+      if(full&&len>=4){const m=/^(.+?)\1+$/.exec(sub);if(m&&[...m[1]].length<len)cs.push([Math.pow(card(m[1]),[...m[1]].length)*(len/[...m[1]].length),'rep'])}
+      if(len>=3){const a=[...sub],d=a[0].codePointAt(0)-a[1].codePointAt(0);if(Math.abs(d)==1&&a.every((c,k)=>k==0||a[k-1].codePointAt(0)-c.codePointAt(0)==d))cs.push([(/^[a1]|^[0z9]/.test(sub)?4:26)*2*len,'seq'])}
+      if(full&&isKbd(sub))cs.push([8*len*len,'kbd']);
+      if(/^(19|20)\d\d$/.test(sub))cs.push([120,'date']);
+      if(full&&/^\d{6,8}$/.test(sub)&&dateLike(sub))cs.push([36500,'date']);
+      for(const[c,t]of cs){const g=best[i].g*c;if(g<best[j+1].g)best[j+1]={g,p:i,t}}
+    }
+  }
+  const types=new Set();let k=n;while(k>0){const s=best[k];if(s.t!=='brute')types.add(s.t);k=s.p}
+  return{bits:Math.log2(best[n].g),types,len:n,classes:[/[a-z]/,/[A-Z]/,/\d/,/[^a-zA-Z0-9]/].filter(r=>r.test(pw)).length};
+};
+const pwLabel=b=>b<28?['ضعيفة جداً','bad']:b<36?['ضعيفة','bad']:b<60?['متوسطة','warn']:b<80?['قوية','ok']:['قوية جداً','ok'];
+const dur=s=>s<1?'أقل من ثانية':s<60?Math.round(s)+' ثانية':s<3600?Math.round(s/60)+' دقيقة':s<86400?Math.round(s/3600)+' ساعة':s<2592000?Math.round(s/86400)+' يوم':s<31536000?Math.round(s/2592000)+' شهر':s<3153600000?Math.round(s/31536000).toLocaleString('en')+' سنة':'قرون طويلة';
+const ATK=[['هجوم أونلاين (محدود المحاولات)',1/36],['هجوم أونلاين (بدون حد)',10],['تسريب قاعدة بيانات — تجزئة بطيئة',1e4],['تسريب قاعدة بيانات — تجزئة سريعة',1e10]];
+const hibp=async pw=>{try{const h=[...new Uint8Array(await crypto.subtle.digest('SHA-1',enc.encode(pw)))].map(x=>x.toString(16).padStart(2,'0')).join('').toUpperCase();const t=await(await fetch('https://api.pwnedpasswords.com/range/'+h.slice(0,5),{headers:{'Add-Padding':'true'},referrerPolicy:'no-referrer',credentials:'omit'})).text();const l=t.split('\n').map(x=>x.trim().split(':')).find(x=>x[0]===h.slice(5)&&+x[1]>0);return l?+l[1]:0}catch(e){return null}};
+const genPw=(n,sym)=>{const cs=['abcdefghijkmnopqrstuvwxyz','ABCDEFGHJKLMNPQRSTUVWXYZ','23456789'];if(sym)cs.push('!@#$%^&*-_+=?');const all=cs.join(''),o=cs.map(c=>c[RND(c.length)]);while(o.length<n)o.push(all[RND(all.length)]);for(let i=o.length-1;i>0;i--){const j=RND(i+1);[o[i],o[j]]=[o[j],o[i]]}return{pw:o.slice(0,n).join(''),bits:Math.round(n*Math.log2(all.length))}};
+const clearClip=v=>setTimeout(async()=>{try{if(await navigator.clipboard.readText()===v)await navigator.clipboard.writeText('')}catch(e){}},30000);
+
+tool('gen',el=>{
+  const L=lvl(),pn=PL[eff()].n;let tm;cl.push(()=>clearTimeout(tm));
+  el.innerHTML=`<h2>قوة كلمة السر</h2><p class=m>مستوى التحليل (${esc(pn)}): ${L==1?'تقدير مبسّط حسب أنواع الحروف.':L==2?'بيكشف الكلمات الشائعة والتكرار والتسلسل.':'تحليل أنماط كامل (لوحة المفاتيح، التواريخ، الاستبدالات) + زمن الكسر'+(L>=4?' + فحص التسريب تلقائياً.':'.')}</p>
+  <input type=password id=p placeholder="اكتب كلمة سر للتقييم" autocomplete=off spellcheck=false><label class=o><input type=checkbox id=sh>إظهار الكلمة</label><div id=sr></div><div id=br class=m></div>
+  <h2 style="margin-top:12px">مولّد كلمات سر</h2><label class=o>الطول <input type=range id=l min=8 max=40 value=16 style="flex:1"><span id=lv>16</span></label><label class=o><input type=checkbox id=sy checked>رموز خاصة</label><button id=g>ولّد</button> <button class=s id=cp>نسخ</button><input type=text id=out readonly><div id=gi class=m></div>`;
+  $('#sh',el).onchange=e=>$('#p',el).type=e.target.checked?'text':'password';
+  $('#p',el).oninput=e=>{
+    const v=e.target.value,o=$('#sr',el),br=$('#br',el);clearTimeout(tm);br.textContent='';if(!v){o.innerHTML='';return}
+    let b,notes=[],a=null;
+    if(L==1){let p=0;/[a-z]/.test(v)&&(p+=26);/[A-Z]/.test(v)&&(p+=26);/\d/.test(v)&&(p+=10);/[^\w]/.test(v)&&(p+=32);b=Math.round(Math.min([...v].length*Math.log2(p||1),pwAnalyze(v,false).bits));const l=b<40?['ضعيفة جداً','bad']:b<60?['ضعيفة','warn']:b<80?['متوسطة','warn']:['قوية','ok'];o.innerHTML=`<span class=${l[1]}>${l[0]}</span> — حوالي ${b} bit (تقدير مبسّط)`;return}
+    a=pwAnalyze(v,L>=3);b=a.bits;const lb=pwLabel(b);
+    if(a.types.has('dict'))notes.push('فيها كلمة/رقم من القوائم الشائعة');if(a.types.has('word'))notes.push('فيها كلمات طبيعية (حتى لو مش في القاموس)');if(a.types.has('leet'))notes.push('استبدال حروف متوقع (مثل @ بدل a)');if(a.types.has('rep'))notes.push('تكرار حروف');if(a.types.has('seq'))notes.push('تسلسل واضح (abc / 123)');if(a.types.has('kbd'))notes.push('مسار لوحة مفاتيح');if(a.types.has('date'))notes.push('تاريخ أو سنة');
+    if(a.len<12)notes.push('أقل من 12 حرف');if(a.classes<3&&a.len<16)notes.push('نوّع الحروف (كبير/صغير/رقم/رمز)');
+    let h=`<div class=lv><i style="width:${Math.min(100,b/1.2)}%"></i></div><span class=${lb[1]}>${lb[0]}</span> — حوالي ${Math.round(b)} bit`;
+    if(L>=3)h+=ATK.map(([k,r])=>row(k,dur(Math.pow(2,b)/r))).join('');
+    if(notes.length)h+='<p class=m>⚠ '+notes.map(esc).join(' • ')+'</p>';
+    o.innerHTML=h;
+    if(L>=4){br.textContent='جاري فحص التسريب (بيتبعت أول 5 حروف من البصمة بس)...';tm=setTimeout(async()=>{const c=await hibp(v);if($('#p',el).value!==v)return;br.innerHTML=c==null?'<span class=warn>تعذر فحص التسريب.</span>':c?`<span class=bad>⚠ ظهرت ${c.toLocaleString()} مرة في تسريبات — لا تستخدمها.</span>`:'<span class=ok>✅ مش موجودة في التسريبات المعروفة.</span>'},700)}
+  };
+  $('#l',el).oninput=e=>$('#lv',el).textContent=e.target.value;
+  $('#g',el).onclick=()=>{const r=genPw(+$('#l',el).value,$('#sy',el).checked);$('#out',el).value=r.pw;$('#gi',el).textContent='قوة مولّدة ≈ '+r.bits+' bit (عشوائية آمنة بدون تحيّز)'};
+  $('#cp',el).onclick=async e=>{const v=$('#out',el).value;if(!v)return;if(await copy(v)){flash(e.target);if(L>=3){clearClip(v);$('#gi',el).textContent+=' — هتتمسح من الحافظة بعد 30 ثانية'}}};
+});
+
+/* ====== فاحص الروابط ====== */
+const SHORT=new Set('bit.ly tinyurl.com t.co goo.gl ow.ly is.gd buff.ly cutt.ly rebrand.ly shorturl.at tiny.cc rb.gy s.id v.gd t.ly bl.ink lnkd.in'.split(' '));
+const BADTLD=new Set('zip mov xyz top tk ml ga cf gq click country work loan support men icu cyou rest monster buzz sbs quest cam'.split(' '));
+const KW='login signin verify secure account update bank wallet free gift claim password support confirm billing payment suspend unlock prize reward airdrop'.split(' ');
+const BRANDS='google facebook instagram whatsapp telegram paypal apple microsoft amazon netflix asiacell zain korek binance tiktok snapchat youtube twitter github steam discord'.split(' ');
+const BADEXT=new Set('exe apk scr bat cmd msi js vbs jar ps1 lnk iso dmg pkg hta'.split(' '));
+const lev=(a,b)=>{const m=a.length,n=b.length,d=Array.from({length:m+1},(_,i)=>[i,...Array(n).fill(0)]);for(let j=1;j<=n;j++)d[0][j]=j;for(let i=1;i<=m;i++)for(let j=1;j<=n;j++)d[i][j]=Math.min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+(a[i-1]==b[j-1]?0:1));return d[m][n]};
+const regDom=h=>{const l=h.split('.');if(l.length<=2)return h;const t=l.slice(-2);return t[1].length==2&&['co','com','org','net','gov','edu','ac'].includes(t[0])?l.slice(-3).join('.'):t.join('.')};
+const inspect=(s,L)=>{
+  const raw=s,u=new URL(/^[a-z][a-z0-9+.-]*:/i.test(s)?s:'https://'+s),h=u.hostname.toLowerCase(),R0=[],F=[];
+  const rawHost=s.replace(/^[a-z][\w+.-]*:\/\//i,'').split(/[\/?#]/)[0].split('@').pop().replace(/:\d+$/,'');
+  const ip=/^[\d.]+$/.test(h)||h.includes(':'),pu=/xn--|[^\x00-\x7f]/.test(h+rawHost),at=/@/.test(raw.replace(/^[a-z][\w+.-]*:\/\//i,'').split(/[\/?#]/)[0]),subs=Math.max(0,h.split('.').length-2);
+  const r=(k,v,c,w=0,min=1)=>{if(L>=min){R0.push([k,v,c]);if(c!='ok'&&w)F.push(w)}};
+  r('البروتوكول',u.protocol,u.protocol=='https:'?'ok':'warn',u.protocol=='http:'?10:/^(javascript|data|file):$/.test(u.protocol)?40:0);
+  r('الدومين',h,'');r('المسار',u.pathname+u.search,'');
+  r('IP بدل دومين',yn(ip),ip?'bad':'ok',25);r('Punycode/رموز غريبة',yn(pu),pu?'warn':'ok',20);r('@ في الرابط',yn(at),at?'bad':'ok',25);
+  r('النطاقات الفرعية',subs,subs>3?'warn':'ok',10);r('طول الرابط',raw.length,raw.length>120?'warn':'ok',5);
+  const sh=SHORT.has(h);r('رابط مختصر',yn(sh),sh?'warn':'ok',15,2);
+  const tld=h.split('.').pop(),bt=BADTLD.has(tld);r('امتداد شائع في الاحتيال (.'+tld+')',yn(bt),bt?'warn':'ok',15,2);
+  const kws=KW.filter(k=>(h+u.pathname).toLowerCase().includes(k));r('كلمات استدراج',kws.length?kws.join(', '):'لا',kws.length?'warn':'ok',Math.min(18,kws.length*6),2);
+  const port=u.port&&!['80','443'].includes(u.port);r('منفذ غير اعتيادي',port?u.port:'لا',port?'warn':'ok',10,2);
+  if(L>=3){
+    const lbls=rawHost.split('.'),mixed=lbls.some(x=>[/[A-Za-z]/,/[Ѐ-ӿ]/,/[Ͱ-Ͽ]/,/[؀-ۿ]/].filter(re=>re.test(x)).length>1);
+    r('خلط أبجديات في نفس الاسم (تمويه)',yn(mixed),mixed?'bad':'ok',30,3);
+    const rd=regDom(h),sld=rd.split('.')[0];let br='لا';let bw=0;
+    for(const b of BRANDS){if(sld===b)break;const d=lev(sld,b);if(sld.length>=4&&d>0&&d<=2){br='يشبه '+b;bw=30;break}if(sld.includes(b)){br='داخل اسم الموقع: '+b;bw=25;break}if(h.slice(0,-rd.length).includes(b)){br='داخل نطاق فرعي: '+b;bw=25;break}}
+    r('انتحال علامة معروفة',br,bw?'bad':'ok',bw,3);
+    const hy=(sld.match(/-/g)||[]).length;r('شرطات كثيرة في الاسم',hy,hy>=3?'warn':'ok',8,3);
+    const pe=(u.pathname+u.search).match(/%[0-9a-f]{2}/gi)||[];r('ترميز مخفي (%XX)',pe.length,pe.length>=5?'warn':'ok',8,3);
+    const ext=(u.pathname.split('/').pop().split('.').pop()||'').toLowerCase(),dbl=/\.(pdf|docx?|xlsx?|jpe?g|png|txt)\.(exe|scr|bat|js|apk|msi)$/i.test(u.pathname);
+    r('تنزيل ملف تنفيذي',BADEXT.has(ext)?'.'+ext:'لا',BADEXT.has(ext)?'bad':'ok',30,3);r('امتداد مزدوج مموّه',yn(dbl),dbl?'bad':'ok',35,3);
+  }
+  const sc=Math.min(100,F.reduce((a,b)=>a+b,0));
+  if(L>=2)R0.push(['درجة الخطورة',sc+' / 100',sc<15?'ok':sc<40?'warn':'bad'],['التقييم',sc<15?'ما ظهرت علامات واضحة':sc<40?'فيه علامات مريبة — دقّق قبل الفتح':'خطر عالي — لا تفتحه',sc<15?'ok':sc<40?'warn':'bad']);
+  return R0;
+};
+tool('ui',el=>{
+  const L=lvl();el.innerHTML=`<h2>فاحص الروابط</h2><p class=m>مستوى الفحص (${esc(PL[eff()].n)}): ${L==1?'8 علامات أساسية':L==2?'علامات موسّعة + درجة خطورة':'فحص متقدّم: انتحال العلامات، تمويه الحروف، ملفات خطرة'}. فحص إرشادي وليس بديلاً عن أدوات أمنية حقيقية؛ الرابط ما بيتفتح ولا بيتبعت لأي جهة.</p><input type=text id=u placeholder="https://..." autocomplete=off spellcheck=false><div id=o></div>`;
+  const go=()=>{const s=$('#u',el).value.trim(),o=$('#o',el);if(!s){o.innerHTML='';return}try{o.innerHTML=inspect(s,L).map(r=>row(...r)).join('')}catch(e){o.innerHTML=row('خطأ','رابط غير صالح','warn')}};
+  $('#u',el).oninput=go;
+});
+
+/* ====== التدقيق الأمني ====== */
+const adblock=async()=>{const b=document.createElement('div');b.className='adsbox ad-banner';b.style.cssText='position:absolute;height:10px;width:10px;left:-999px';document.body.append(b);await sleep(150);const k=!b.offsetHeight||getComputedStyle(b).display=='none';b.remove();return k};
+const isPriv=a=>/^(10\.|192\.168\.|172\.(1[6-9]|2\d|3[01])\.|169\.254\.|127\.|f[cd][0-9a-f]{2}:|fe80:|::1$)/i.test(a);
+const rtcIps=()=>new Promise(ok=>{const f=new Set();let p,d=0;const fin=()=>{if(d)return;d=1;try{p&&p.close()}catch(_){}ok([...f])};try{p=new RTCPeerConnection({iceServers:[{urls:'stun:stun.l.google.com:19302'}]});p.createDataChannel('x');p.onicecandidate=e=>{if(!e.candidate)return fin();const a=(e.candidate.candidate.split(' ')[4]||'');/^\d{1,3}(\.\d{1,3}){3}$|^[0-9a-f]*:[0-9a-f:]+$/i.test(a)&&f.add(a)};p.createOffer().then(o=>p.setLocalDescription(o)).catch(fin);setTimeout(fin,3500)}catch(e){ok([])}});
+const maskIp=s=>String(s).replace(/\b(\d{1,3})\.(\d{1,3})\.\d{1,3}\.\d{1,3}\b/g,'$1.$2.•.•').replace(/\b([0-9a-f]{1,4}):([0-9a-f]{1,4}):[0-9a-f:]+/gi,'$1:$2:•');
+const fpSurface=async()=>{
+  const n=navigator,c=()=>{const k=document.createElement('canvas');k.width=200;k.height=40;const x=k.getContext('2d');x.font='16px Arial';x.fillText('ZilusX ✓ 😀',4,24);return k.toDataURL()};
+  let canvasOpen=true;try{canvasOpen=c()===c()&&c().length>200}catch(e){canvasOpen=false}
+  let gl=false;try{const g=document.createElement('canvas').getContext('webgl');gl=!!(g&&g.getExtension('WEBGL_debug_renderer_info'))}catch(e){}
+  let ch=false;try{const h=await n.userAgentData.getHighEntropyValues(['architecture','model','platformVersion']);ch=!!(h.platformVersion||h.architecture)}catch(e){}
+  const src=[['Canvas',canvasOpen],['WebGL renderer',gl],['أنوية المعالج',!!n.hardwareConcurrency],['حجم الرام',!!n.deviceMemory],['UA Client Hints',ch],['اللغات المتعددة',(n.languages||[]).length>1],['المنطقة الزمنية',!!Intl.DateTimeFormat().resolvedOptions().timeZone],['مقاس الشاشة',!!screen.width]];
+  return{open:src.filter(x=>x[1]).length,total:src.length,src};
+};
+const runAudit=async L=>{
+  const n=navigator,E=[],add=(label,pts,got,val,adv,min=1)=>{if(L>=min)E.push({label,pts,got:Math.max(0,Math.min(pts,Math.round(got))),val:String(val),adv})};
+  const https=location.protocol=='https:';add('اتصال HTTPS (يخصم فقط لو غير آمن)',https?0:5,0,yn(https),'افتح الموقع عبر HTTPS فقط.');
+  add('Do Not Track (مؤشر ضعيف، المتصفحات الحديثة تتجاهله)',2,n.doNotTrack=='1'?2:0,n.doNotTrack=='1'?'مفعل':'غير مفعل','فعّل "عدم التتبع" من إعدادات الخصوصية في المتصفح.');
+  add('Global Privacy Control',8,n.globalPrivacyControl?8:0,n.globalPrivacyControl?'مفعل':'غير مفعل/غير مدعوم','استخدم متصفحاً يدعم GPC (مثل Firefox/Brave) أو إضافة تفعّله.');
+  const ab=await adblock();add('حاجب إعلانات/تتبع (كشف تقريبي، حاجبات DNS ما بتتكشفش)',10,ab?10:0,ab?'مكتشف':'غير مكتشف','ثبّت حاجب تتبع موثوق (uBlock Origin أو ما يماثله).');
+  let g=0;for(const p of['geolocation','camera','microphone','notifications']){try{(await n.permissions.query({name:p})).state=='granted'&&g++}catch(e){}}
+  add('صلاحيات ممنوحة لهذا الموقع',12,12*(1-g/4),g+' من 4','راجع الصلاحيات الممنوحة وأزل ما لا تحتاجه.',2);
+  const ips=await rtcIps(),priv=ips.filter(isPriv);
+  add('كشف IP داخلي عبر WebRTC',12,priv.length?0:12,priv.length?(L>=3&&maskOn()?priv.map(maskIp):priv).join(', '):'لا','عطّل WebRTC أو استخدم خيار "منع تسريب IP" في المتصفح.',2);
+  if(L>=3){const f=await fpSurface();add('سطح البصمة (مصادر مكشوفة)',12,12*(1-f.open/f.total),f.open+' من '+f.total,'استخدم متصفحاً بحماية من البصمة (Firefox مع resistFingerprinting أو Brave).',3);
+    add('Battery API مكشوف (معلومة فقط، بدون خصم)',0,typeof n.getBattery=='function'?0:4,typeof n.getBattery=='function'?'نعم':'لا','واجهة البطارية ممكن تُستخدم للتتبع؛ بعض المتصفحات تخفيها.',3)}
+  if(L>=4){let pub=ips.filter(a=>!isPriv(a)),ho=null;try{ho=(await(await fetch('https://ipwho.is/',{referrerPolicy:'no-referrer',credentials:'omit'})).json()).ip}catch(e){}
+    let got=10,val='لا يوجد تسريب ظاهر';if(!ho){got=5;val='تعذر الفحص (لا اتصال)'}else{const fm=x=>x.includes(':'),same=pub.filter(a=>fm(a)==fm(ho));if(same.some(a=>a.toLowerCase()!==ho.toLowerCase())){got=fm(ho)?3:0;val='IP مختلف عن اتصالك — احتمال تسريب VPN'+(fm(ho)?' (أو اختلاف صيغة IPv6)':'')}else if(!same.length){got=7;val='ما ظهر IP عام من نفس النوع للمقارنة'}}
+    add('مطابقة IP: WebRTC مقابل الاتصال',10,got,val,'لو تستخدم VPN، فعّل حماية WebRTC أو عطّله.',4)}
+  return E;
+};
+addTool('audit','🛡','التدقيق الأمني',el=>{
+  const L=lvl(),pn=PL[eff()].n;
+  el.innerHTML=`<h2>التدقيق الأمني</h2><p class=m>مستوى التدقيق (${esc(pn)}): ${L==1?'قائمة فحوصات أساسية.':L==2?'درجة تقريبية من 100 + أهم التوصيات.':L==3?'تدقيق موزون مفصّل + أولويات الإصلاح.':'تدقيق كامل + مقارنة بآخر مرة + سجل + تقرير مشفّر + إخفاء البيانات الحساسة.'} الفحص بيتم داخل متصفحك؛ فحص WebRTC بيتواصل مع STUN تبع Google${L>=4?'، ومطابقة IP مع ipwho.is':''}.</p><button id=go>ابدأ التدقيق</button><div id=o></div>`;
+  $('#go',el).onclick=async e=>{
+    const o=$('#o',el),bt=e.target;bt.disabled=true;o.innerHTML='<p class=m>جاري التدقيق...</p>';
+    try{
+      const E=await runAudit(L),tot=E.reduce((a,x)=>a+x.pts,0),got=E.reduce((a,x)=>a+x.got,0),sc=Math.round(got/tot*100),col=sc>=75?'ok':sc>=50?'warn':'bad';
+      let h='';
+      if(L>=2)h+=`<div class=c style="margin:8px 0"><h2>الدرجة التقريبية: <span class=${col}>${sc} / 100</span></h2><div class=lv><i style="width:${sc}%"></i></div><p class=m>مؤشر إرشادي مبني على فحوصات محدودة داخل المتصفح، مش تقييم أمني شامل.</p></div>`;
+      h+=E.map(x=>{const c=x.got>=x.pts?'ok':x.got>0?'warn':'bad';return row((x.got>=x.pts?'✔ ':'✘ ')+x.label+(L>=3?` (${x.got}/${x.pts})`:''),x.val,c)}).join('');
+      const fails=E.filter(x=>x.got<x.pts).sort((a,b)=>(b.pts-b.got)-(a.pts-a.got));
+      if(L==1)h+=fails.length?'<p class=m>أول خطوة: '+esc(fails[0].adv)+'</p>':'<p class=ok>كل الفحوصات الأساسية سليمة.</p>';
+      else{const top=L>=3?fails:fails.slice(0,3);h+=`<h2 style="margin-top:12px">${L>=3?'أولويات الإصلاح (الأكثر أثراً أولاً)':'أهم التوصيات'}</h2>`+(top.length?'<ol class=m>'+top.map(x=>`<li>${esc(x.adv)}${L>=3?` <span class=warn>(+${x.pts-x.got})</span>`:''}</li>`).join('')+'</ol>':'<p class=ok>ممتاز، ما في نقاط ضعيفة ظاهرة.</p>')}
+      if(L>=4){
+        const H=LS.get('zx.h',[]);const prev=H.length?H[H.length-1]:null;H.push({t:Date.now(),s:sc});while(H.length>12)H.shift();LS.set('zx.h',H);
+        h+=`<h2 style="margin-top:12px">السجل</h2>`+(prev?`<p class=m>الفرق عن آخر تدقيق: <span class=${sc>=prev.s?'ok':'bad'}>${sc-prev.s>=0?'+':''}${sc-prev.s}</span></p>`:'')+H.slice().reverse().slice(0,6).map(x=>`<div class=r><span>${new Date(x.t).toLocaleString('ar-EG')}</span><span>${x.s}</span></div><div class=bar2><i style="width:${x.s}%"></i></div>`).join('')
+          +`<h2 style="margin-top:12px">تصدير مشفّر</h2><input type=password id=ep placeholder="كلمة سر للتشفير (10 حروف+)" autocomplete=off><button class=s id=ex>تنزيل التقرير المشفّر</button><div id=em class=m></div>`;
+        o.innerHTML=h;
+        $('#ex',el).onclick=async()=>{const pw=$('#ep',el).value,m=$('#em',el);if(pw.length<10){m.innerHTML='<span class=warn>كلمة السر لازم تكون 10 حروف على الأقل.</span>';return}
+          m.textContent='جاري التشفير...';const rep={app:'ZilusX',when:new Date().toISOString(),plan:PL[eff()].n,score:sc,items:E.map(x=>({check:x.label,points:x.got+'/'+x.pts,value:x.val}))};
+          try{dl('zilusx-audit.zxr',await aesEnc(JSON.stringify(rep,null,2),pw));$('#ep',el).value='';m.innerHTML='<span class=ok>تم. للفك: أداة "تشفير AES-256" داخل التطبيق.</span>'}catch(x){m.innerHTML='<span class=warn>فشل التشفير.</span>'}};
+      }else o.innerHTML=h;
+      R.audit={score:L>=2?sc:undefined,level:PL[eff()].n,items:Object.fromEntries(E.map(x=>[x.label,x.val]))};
+    }catch(x){o.innerHTML=row('خطأ',x.message||'فشل التدقيق','warn')}
+    bt.disabled=false;
+  };
+});
+
+/* ====== أدوات Golden ====== */
+/* الخزنة المشفّرة */
+addTool('vault','🗄','الخزنة المشفّرة',el=>{
+  let VK=null,notes=[],cur=-1,tm,fails=0;const KEY='zx.vault';
+  const touch=()=>{clearTimeout(tm);if(VK)tm=setTimeout(lock,120000)};
+  const flushEdit=async()=>{if(!VK||cur<0||!notes[cur])return;const t=$('#tt',el),b=$('#tb',el);if(!t||!b)return;if(notes[cur].t!==t.value.slice(0,120)||notes[cur].b!==b.value){notes[cur].t=t.value.slice(0,120);notes[cur].b=b.value;notes[cur].ts=Date.now();try{await persist()}catch(e){}}};
+  const lock=async()=>{clearTimeout(tm);await flushEdit();VK=null;notes=[];cur=-1;draw('تم القفل (اتحفظت أي تعديلات)')};
+  const onVis=()=>{if(document.hidden&&VK)lock()};document.addEventListener('visibilitychange',onVis);
+  cl.push(()=>{clearTimeout(tm);VK=null;notes=[];document.removeEventListener('visibilitychange',onVis)});
+  const persist=async()=>{const iv=crypto.getRandomValues(new Uint8Array(12)),ct=new Uint8Array(await crypto.subtle.encrypt({name:'AES-GCM',iv},VK.key,enc.encode(JSON.stringify(notes)))),o=new Uint8Array(31+ct.length);o.set([90,88,86]);o.set(VK.salt,3);o.set(iv,19);o.set(ct,31);if(!LS.setRaw(KEY,b64(o)))throw Error('التخزين غير متاح في المتصفح');return b64(o)};
+  const open=async(b,pw)=>{const u=ub(b.trim());if(u[0]!=90||u[1]!=88||u[2]!=86)throw Error('bad');const salt=u.slice(3,19);let er;for(const nf of[1,0]){try{const key=await dk(pw,salt,ITER,nf);return{key,salt,notes:JSON.parse(dec.decode(await crypto.subtle.decrypt({name:'AES-GCM',iv:u.slice(19,31)},key,u.slice(31))))}}catch(e){er=e}}throw er};
+  const msg=t=>{const m=$('#vm',el);if(m)m.innerHTML=t};
+  const draw=(info='')=>{
+    const stored=LS.raw(KEY);
+    if(!VK&&!stored){el.innerHTML=`<h2>🗄 الخزنة المشفّرة</h2><p class=m>ملاحظاتك بتتشفّر (AES-256-GCM + PBKDF2 بـ 600 ألف دورة) وبتتخزن في متصفحك فقط. بتتقفل تلقائياً بعد دقيقتين خمول أو عند مغادرة الصفحة. <b class=warn>لو نسيت الكلمة الرئيسية ما في استرجاع.</b></p><input type=password id=m1 placeholder="الكلمة الرئيسية (10 حروف+)" autocomplete=new-password><input type=password id=m2 placeholder="كرّرها" autocomplete=new-password><button id=mk>إنشاء الخزنة</button> <button class=s id=im>استيراد نسخة احتياطية</button><div id=vm class=m>${info}</div>`;
+      $('#mk',el).onclick=async()=>{const a=$('#m1',el).value,b=$('#m2',el).value;if(a.length<10)return msg('<span class=warn>الكلمة لازم تكون 10 حروف على الأقل.</span>');if(a!==b)return msg('<span class=warn>الكلمتان مو متطابقتين.</span>');const an=pwAnalyze(a,true);if(an.bits<60)return msg('<span class=warn>الكلمة ضعيفة (≈'+Math.round(an.bits)+' bit). اختار أقوى.</span>');
+        msg('جاري التشفير...');try{const salt=crypto.getRandomValues(new Uint8Array(16));VK={key:await dk(a,salt,ITER),salt};notes=[];await persist();$('#m1',el).value=$('#m2',el).value='';cur=-1;touch();draw()}catch(e){VK=null;msg('<span class=warn>'+esc(e.message)+'</span>')}};
+      $('#im',el).onclick=()=>impDlg();return}
+    if(!VK){el.innerHTML=`<h2>🔒 الخزنة مقفولة</h2><input type=password id=m1 placeholder="الكلمة الرئيسية" autocomplete=off><button id=ul>فتح</button> <button class=s id=im>استيراد نسخة احتياطية</button><div id=vm class=m>${info}</div>`;
+      $('#ul',el).onclick=async()=>{const a=$('#m1',el).value;if(!a)return;msg('جاري الفتح...');await sleep(Math.min(8000,fails*800));try{const r=await open(stored,a);VK={key:r.key,salt:r.salt};notes=r.notes;cur=notes.length?0:-1;fails=0;touch();draw()}catch(e){fails++;$('#m1',el).value='';msg('<span class=bad>الكلمة غلط أو البيانات تالفة.</span>')}};
+      $('#m1',el).onkeydown=e=>e.key=='Enter'&&$('#ul',el).click();$('#im',el).onclick=()=>impDlg();return}
+    const n=notes[cur];
+    el.innerHTML=`<h2>🗄 الخزنة (${notes.length} ملاحظة)</h2><select id=ls size=4>${notes.map((x,i)=>`<option value=${i} ${i==cur?'selected':''}>${esc(x.t||'(بدون عنوان)')}</option>`).join('')}</select>
+    <input type=text id=tt placeholder="العنوان" value="${n?esc(n.t):''}" autocomplete=off><textarea id=tb rows=6 placeholder="المحتوى المشفّر" spellcheck=false>${n?esc(n.b):''}</textarea>
+    <button id=sv>حفظ</button> <button class=s id=nw>جديد</button> <button class=s id=dt>حذف</button> <button class=s id=lk>🔒 قفل الآن</button> <button class=s id=ex>نسخة احتياطية</button><div id=vm class=m>${info}</div>`;
+    $('#ls',el).onchange=e=>{cur=+e.target.value;touch();draw()};
+    $('#nw',el).onclick=async()=>{notes.push({t:'ملاحظة جديدة',b:'',ts:Date.now()});cur=notes.length-1;let er='';try{await persist()}catch(e){er='<span class=warn>'+esc(e.message)+'</span>'}touch();draw(er)};
+    $('#sv',el).onclick=async()=>{if(cur<0){notes.push({t:'',b:'',ts:Date.now()});cur=0}notes[cur].t=$('#tt',el).value.slice(0,120);notes[cur].b=$('#tb',el).value;notes[cur].ts=Date.now();try{await persist();touch();draw('<span class=ok>تم الحفظ مشفّراً ✔</span>')}catch(e){msg('<span class=warn>'+esc(e.message)+'</span>')}};
+    $('#dt',el).onclick=async()=>{if(cur<0||!confirm('حذف هذه الملاحظة نهائياً؟'))return;notes.splice(cur,1);cur=notes.length?0:-1;let er='';try{await persist()}catch(e){er='<span class=warn>'+esc(e.message)+'</span>'}touch();draw(er)};
+    $('#lk',el).onclick=lock;
+    $('#ex',el).onclick=()=>{const b=LS.raw(KEY);if(b){dl('zilusx-vault.bak',b);msg('<span class=ok>تم تنزيل نسخة مشفّرة. بتحتاج نفس الكلمة الرئيسية لفتحها.</span>')}};
+  };
+  el.oninput=touch;el.onclick=touch;
+  const impDlg=()=>{el.innerHTML=`<h2>استيراد نسخة احتياطية</h2><p class=m>الصق محتوى ملف الـ .bak. <b class=warn>هذا بيستبدل الخزنة الحالية على هذا المتصفح.</b></p><textarea id=ib rows=4 spellcheck=false></textarea><button id=ok>استيراد</button> <button class=s id=cn>رجوع</button><div id=vm class=m></div>`;
+    $('#cn',el).onclick=()=>draw();$('#ok',el).onclick=async()=>{const b=$('#ib',el).value.trim().replace(/\s+/g,'');try{const u=ub(b);if(u[0]!=90||u[1]!=88||u[2]!=86)throw 0;if(LS.raw(KEY)&&!confirm('استبدال الخزنة الحالية؟'))return;if(!LS.setRaw(KEY,b))throw 1;draw('<span class=ok>تم الاستيراد. افتحها بكلمتها الرئيسية.</span>')}catch(e){msg('<span class=warn>الملف غير صالح.</span>')}}};
+  draw();
+});
+
+/* رموز 2FA (TOTP) */
+const b32=s=>{s=s.toUpperCase().replace(/[\s=-]/g,'');const A='ABCDEFGHIJKLMNOPQRSTUVWXYZ234567';let bits='';for(const c of s){const v=A.indexOf(c);if(v<0)throw Error('رمز Base32 غير صالح');bits+=v.toString(2).padStart(5,'0')}const o=[];for(let i=0;i+8<=bits.length;i+=8)o.push(parseInt(bits.slice(i,i+8),2));return new Uint8Array(o)};
+const totp=async(secret,digits,period,algo,nowMs)=>{const key=await crypto.subtle.importKey('raw',b32(secret),{name:'HMAC',hash:algo},false,['sign']),ctr=Math.floor(nowMs/1000/period),b=new Uint8Array(8);let c=ctr;for(let i=7;i>=0;i--){b[i]=c&255;c=Math.floor(c/256)}const h=new Uint8Array(await crypto.subtle.sign('HMAC',key,b)),o=h[h.length-1]&15,v=((h[o]&127)<<24|h[o+1]<<16|h[o+2]<<8|h[o+3])>>>0;return String(v%Math.pow(10,digits)).padStart(digits,'0')};
+addTool('totp','🔢','رموز 2FA (TOTP)',el=>{
+  el.innerHTML=`<h2>مولّد رموز 2FA</h2><p class=m>الصق مفتاح الإعداد (Base32) اللي بيعطيك إياه الموقع. الرمز بيتحسب على جهازك ولا يتخزن ولا يتبعت. تنبيه: تخزين 2FA وكلمات السر في نفس المتصفح بيخلي اختراق واحد يفتح الاتنين، والأفضل تطبيق مصادقة منفصل.</p><input type=password id=sk placeholder="مثال: JBSWY3DPEHPK3PXP" autocomplete=off spellcheck=false><div class=r><span>الخوارزمية</span><span><select id=al><option>SHA-1</option><option>SHA-256</option><option>SHA-512</option></select></span></div><div class=r><span>الأرقام / المدة (ث)</span><span><select id=dg><option>6</option><option>8</option></select> <select id=pr><option>30</option><option>60</option></select></span></div><div id=o style="font-size:32px;letter-spacing:6px;text-align:center;margin:10px 0" class=mono></div><div class=lv><i id=tb style="width:0"></i></div><div id=er class=m></div>`;
+  const tick=async()=>{const s=$('#sk',el).value,o=$('#o',el);if(!s){o.textContent='';$('#tb',el).style.width='0';$('#er',el).textContent='';return}const p=+$('#pr',el).value,now=Date.now();try{o.textContent=await totp(s,+$('#dg',el).value,p,$('#al',el).value,now);$('#er',el).textContent='';$('#tb',el).style.width=(100-(now/1000%p)/p*100)+'%'}catch(e){o.textContent='';$('#er',el).innerHTML='<span class=warn>'+esc(e.message)+'</span>'}};
+  const iv=setInterval(tick,500);cl.push(()=>{clearInterval(iv);$('#sk',el)&&($('#sk',el).value='')});el.oninput=el.onchange=tick;tick();
+});
+
+/* فحص تسريب لدفعة كلمات سر */
+addTool('pwnb','📚','فحص تسريب دفعة كلمات',el=>{
+  el.innerHTML=`<h2>فحص تسريب دفعة كلمات سر</h2><p class=m>اكتب كلمة في كل سطر (حتى 25). لكل كلمة بيتبعت أول 5 حروف من بصمة SHA-1 فقط (k-anonymity) مع تعمية حجم الرد. الكلمات ما بتظهر كاملة ولا بتتخزن، وبتتمسح من الخانة بعد الفحص.</p><textarea id=t rows=6 placeholder="كلمة في كل سطر" autocomplete=off spellcheck=false></textarea><button id=b>افحص الدفعة</button><div id=o></div>`;
+  $('#b',el).onclick=async e=>{const bt=e.target,o=$('#o',el),ls=[...new Set($('#t',el).value.split('\n').map(x=>x.replace(/\r$/,'')).filter(Boolean))].slice(0,25);if(!ls.length)return;bt.disabled=true;o.innerHTML='<p class=m>جاري الفحص...</p>';$('#t',el).value='';
+    let h='',bad=0;for(const w of ls){const c=await hibp(w),cp=[...w],lab=cp[0]+'•'.repeat(Math.min(8,cp.length-1))+' ('+cp.length+' حرف)';if(c==null)h+=row(lab,'تعذر الفحص','warn');else if(c){bad++;h+=row(lab,'ظهرت '+c.toLocaleString()+' مرة','bad')}else h+=row(lab,'مش موجودة ✔','ok');await sleep(120)}
+    o.innerHTML=`<p class=${bad?'bad':'ok'}>${bad?bad+' من '+ls.length+' كلمة متسرّبة — غيّرها فوراً.':'ما ظهرت أي كلمة في التسريبات المعروفة.'}</p>`+h;bt.disabled=false};
+});
+
+/* مسح الطوارئ */
+addTool('panic','🧹','مسح الطوارئ',el=>{
+  el.innerHTML=`<h2>مسح الطوارئ</h2><p class=m>بيمسح آثار استخدامك لهذه الصفحة من المتصفح. اختار المطلوب:</p>
+  <label class=o><input type=checkbox id=a1 checked>كوكيز + تخزين الجلسة + الكاش + IndexedDB + Service Workers</label>
+  <label class=o><input type=checkbox id=a2 checked>نتائج الفحوصات الحالية والحافظة</label>
+  <label class=o><input type=checkbox id=a3>الخزنة المشفّرة وسجل التدقيق</label>
+  <label class=o><input type=checkbox id=a4><span class=warn>كل شي بما فيه التفعيل وعدّادات الباقات (احتفظ بمعرّفك ومفتاحك)</span></label>
+  <button id=go style="background:linear-gradient(135deg,#ff8a8a,#ff5d5d)">🧹 نفّذ المسح</button><div id=o class=m></div>`;
+  $('#go',el).onclick=async()=>{
+    const c=n=>$('#'+n,el).checked;if(!confirm('تأكيد المسح؟ ما في رجوع.'))return;const log=[];
+    if(c('a1')){document.cookie.split('; ').forEach(k=>{const n=k.split('=')[0];if(n)document.cookie=n+'=;expires=Thu,01 Jan 1970 00:00:00 GMT;path=/'});try{sessionStorage.clear()}catch(e){}
+      try{for(const k of await caches.keys())await caches.delete(k)}catch(e){}try{for(const d of await indexedDB.databases())indexedDB.deleteDatabase(d.name)}catch(e){}try{for(const r of await navigator.serviceWorker.getRegistrations())await r.unregister()}catch(e){}log.push('الكوكيز والتخزين المؤقت')}
+    if(c('a2')){Object.keys(R).forEach(k=>delete R[k]);try{await navigator.clipboard.writeText('')}catch(e){}log.push('النتائج والحافظة')}
+    if(c('a3')){LS.del('zx.vault');LS.del('zx.h');log.push('الخزنة والسجل')}
+    if(c('a4')){try{Object.keys(localStorage).filter(k=>k.startsWith('zx.')).forEach(k=>localStorage.removeItem(k))}catch(e){}S={plan:'low',u:{},mask:null};GOLD=false;ID=newId();LS.setRaw('zx.id',ID);log.push('التفعيل والعدّادات (المعرّف الجديد: '+ID+')')}
+    $('#o',el).innerHTML=log.length?'<span class=ok>تم مسح: '+esc(log.join('، '))+'</span>':'ما اخترت شي.';bar();grid();
+  };
+});
+
+/* ====== تقرير (إخفاء حساس + تشفير) ====== */
+const SENS=/^(IP|IP العام)$|^IP|ASN|User-Agent|داخلي|عنوان|العناوين|بصمة|موقع|المدينة|المزود|^(lat|lng|lon|geo)/i;
+const redact=o=>Array.isArray(o)?o.map(redact):o&&typeof o=='object'?Object.fromEntries(Object.entries(o).map(([k,v])=>[k,SENS.test(k)?'••• محجوب •••':redact(v)])):o;
+tool('rep',el=>{
+  const L=lvl();
+  el.innerHTML=`<h2>التقرير</h2><p class=m>بيشمل نتائج الفحوصات اللي شغلتها في الجلسة دي.</p><label class=o><input type=checkbox id=rd checked>إخفاء البيانات الحساسة (IP، الموقع، البصمة، المدينة)</label><button id=d>تنزيل JSON</button> <button class=s id=c>نسخ</button> <button class=s id=x>مسح</button>${GOLD?'<h2 style="margin-top:12px">تقرير مشفّر 🔐</h2><input type=password id=ep placeholder="كلمة سر للتشفير (10 حروف+)" autocomplete=off><button class=s id=en>تنزيل مشفّر (.zxr)</button>':''}<div id=m class=m></div>`;
+  const j=()=>JSON.stringify($('#rd',el).checked?redact(R):R,null,2);
+  $('#d',el).onclick=()=>dl('report.json',j(),'application/json');
+  $('#c',el).onclick=async e=>{if(await copy(j()))flash(e.target)};
+  $('#x',el).onclick=()=>{Object.keys(R).forEach(k=>delete R[k]);$('#m',el).innerHTML='<span class=ok>اتمسح</span>'};
+  if(GOLD)$('#en',el).onclick=async()=>{const pw=$('#ep',el).value,m=$('#m',el);if(pw.length<10){m.innerHTML='<span class=warn>كلمة السر 10 حروف على الأقل.</span>';return}m.textContent='جاري التشفير...';try{dl('zilusx-report.zxr',await aesEnc(j(),pw));$('#ep',el).value='';m.innerHTML='<span class=ok>تم. للفك: أداة "تشفير AES-256".</span>'}catch(e){m.innerHTML='<span class=warn>فشل التشفير.</span>'}};
+});
+
+/* ====== التشفير (نسخة محدّثة: 600 ألف دورة + توافق مع القديم) ====== */
+tool('ae',el=>{
+  el.innerHTML='<h2>تشفير/فك نص</h2><p class=m>AES-256-GCM + PBKDF2 (600 ألف دورة)، كله على جهازك. النصوص المشفّرة بالنسخة القديمة لسا بتنفك. لو نسيت كلمة السر مفيش استرجاع.</p><textarea id=t rows=4 placeholder="النص (أو النص المشفّر للفك)" spellcheck=false></textarea><input type=password id=p placeholder="كلمة السر" autocomplete=off><button id=e>تشفير</button> <button class=s id=d>فك</button> <button class=s id=cp>نسخ النتيجة</button><pre id=o style="white-space:pre-wrap;word-break:break-all"></pre>';
+  const o=$('#o',el);
+  $('#e',el).onclick=async()=>{try{const pw=$('#p',el).value;if(!pw)throw Error('اكتب كلمة سر');o.textContent='جاري التشفير...';o.textContent=await aesEnc($('#t',el).value,pw)}catch(x){o.textContent='خطأ: '+x.message}};
+  $('#d',el).onclick=async()=>{try{o.textContent='جاري الفك...';o.textContent=await aesDec($('#t',el).value,$('#p',el).value)}catch(x){o.textContent='فشل الفك: كلمة السر غلط أو النص تالف'}};
+  $('#cp',el).onclick=async e=>{if(await copy(o.textContent))flash(e.target)};
+});
+
+/* ====== صفحة الباقات ====== */
+const PLANS_UI=['low','medium','high'];
+const FEAT={
+  low:['كل الأدوات الأساسية بدون حد','قوة كلمة السر: تقدير مبسّط','فاحص روابط: 8 علامات','تدقيق أمني: قائمة فحوصات أساسية'],
+  medium:['حد 500 عملية أسبوعياً (يتجدد الأحد)','كشف الكلمات الشائعة والتكرار والتسلسل','فاحص روابط موسّع + درجة خطورة','تدقيق أمني بدرجة من 100 + أهم التوصيات'],
+  high:['حد 50 عملية يومياً (يتجدد كل يوم)','تحليل كلمة السر بنموذج أنماط كامل + زمن الكسر بـ 4 سيناريوهات','فاحص روابط متقدّم: انتحال علامات، تمويه حروف، ملفات خطرة','تدقيق موزون + ترتيب الإصلاح حسب الأثر','إخفاء IP والموقع في النتائج (اختياري)'],
+  golden:['حد 250 عملية يومياً مع كل مزايا High','🗄 خزنة ملاحظات مشفّرة (AES-256-GCM) بقفل تلقائي','🔐 تقارير وتدقيق مشفّرة قابلة للتنزيل','📚 فحص تسريب دفعة كلمات سر (k-anonymity)','🔢 مولّد رموز 2FA محلي','🧹 مسح الطوارئ لآثار الجلسة','🔎 فحص WebRTC مقابل IP الاتصال (إرشادي) + سجل ومقارنة','🙈 إخفاء IP والموقع افتراضياً','🔑 تفعيل دائم مرتبط بمعرّف الجهاز المحفوظ في متصفحك']
+};
+const meter=p=>{const pl=PL[p];if(pl.lim===Infinity)return'<span class=ok>بدون حد</span>';const u=used(p);return`<div class=bar2><i style="width:${Math.min(100,u/pl.lim*100)}%"></i></div><span class=m>استخدمت ${fnum(u)} من ${fnum(pl.lim)} ${pl.per=='w'?'هذا الأسبوع':'اليوم'} — المتبقي <b class=${left(p)?'ok':'bad'}>${fnum(left(p))}</b></span>`};
+addTool('plans','⭐','اشتراكات H-G-P',el=>{
+  const draw=async(note='')=>{
+    const fp=await pubFp();
+    const card=p=>{const pl=PL[p],on=S.plan===p;return`<div class="c pl ${on?'on':''}"><span class=tg>${on?'الباقة الحالية':'مجانية'}</span><h2>${pl.ico} ${pl.n}</h2><ul>${FEAT[p].map(x=>`<li>${esc(x)}</li>`).join('')}</ul>${meter(p)}${on?'':`<div><button data-pl=${p}>استخدم ${pl.n}</button></div>`}</div>`};
+    const msgTxt=`طلب تفعيل ${CFG.name}\nالمعرّف: ${ID}\nتم تحويل ${fnum(CFG.price)} ${CFG.cur} إلى ${CFG.pay}`;
+    const gold=`<div class="c pl gold ${S.plan=='golden'?'on':''}"><span class=tg>${GOLD?'✅ مفعّلة':'مدفوعة'}</span><h2>👑 ${esc(CFG.name)}</h2><div class=price>${fnum(CFG.price)} <small class=m>${esc(CFG.cur)} — دفعة واحدة، تفعيل دائم</small></div><ul>${FEAT.golden.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>${GOLD?meter('golden')+`<div style="margin-top:8px">${S.plan=='golden'?'<span class=ok>مستخدمة الآن</span>':'<button data-pl=golden>استخدم Golden</button>'} <button class=s id=rv>إزالة التفعيل من هذا الجهاز</button></div><p class=m>معرّف جهازك (احتفظ به): <span class=mono>${esc(ID)}</span></p>`
+      :`<div class=step><i>1</i><div>حوّل <b>${fnum(CFG.price)} ${esc(CFG.cur)}</b> إلى الرقم <span class=mono><b>${esc(CFG.pay)}</b></span> <button class=s id=cn>نسخ الرقم</button></div></div>
+      <div class=step><i>2</i><div>أرسل لصاحب الموقع معرّف جهازك مع إثبات التحويل:<span class="idb mono" id=idv>${esc(ID)}</span><button class=s id=ci>نسخ المعرّف</button> <button class=s id=cm>نسخ رسالة جاهزة</button> <button class=s id=rid>استرجاع معرّف قديم</button>${CFG.contact&&/^https:\/\//i.test(CFG.contact)?` <a href="${esc(CFG.contact)}" target=_blank rel="noopener noreferrer"><button class=s type=button>تواصل الآن</button></a>`:''}</div></div>
+      <div class=step><i>3</i><div>بعد التأكد من التحويل بيوصلك <b>مفتاح تفعيل</b>. الصقه هنا:<textarea id=ky rows=3 class=mono placeholder="ZXK1...." spellcheck=false></textarea><button id=ac>تفعيل</button><div id=km class=m></div></div></div>`}</div>`;
+    const sec=lvl()>=3?`<div class=c><h2>الخصوصية</h2><label class=o><input type=checkbox id=mk ${maskOn()?'checked':''}>إخفاء IP والموقع والمزوّد في النتائج</label></div>`:'';
+    el.innerHTML=`<h2>اشتراكات H-G-P</h2><p class=m>اختار مستوى الحماية. <b>العملية</b> = فتح أداة بتتأثر بالباقة (قوة كلمة السر، فاحص الروابط، التدقيق الأمني، التقرير). لو خلص حد باقتك بيشتغل التطبيق تلقائياً على Low لحد التجديد.</p>${note}${PLANS_UI.map(card).join('')}${gold}${sec}<p class=m>ملاحظة: العدّادات والتفعيل محفوظة داخل متصفحك فقط (ما في سيرفر)، فهي حدود استخدام للتنظيم وليست حاجز أمني ضد من يعدّل الكود على جهازه. بصمة مفتاح التحقق: <span class=mono>${fp}</span></p>`;
+  };
+  el.onclick=async e=>{
+    const b=e.target.closest('button');if(!b)return;
+    if(b.dataset.pl){S.plan=b.dataset.pl;save();bar();draw()}
+    else if(b.id=='cn'){if(await copy(CFG.pay))flash(b)}
+    else if(b.id=='ci'){if(await copy(ID))flash(b)}
+    else if(b.id=='rid'){const v=(prompt('اكتب معرّف الجهاز القديم (ZX-XXXX-XXXX):')||'').trim().toUpperCase();if(!v)return;if(!IDRE.test(v))return alert('صيغة المعرّف غير صحيحة');ID=v;LS.setRaw('zx.id',v);const k=LS.raw('zx.key');if(k){const r=await verifyKey(k,ID);GOLD=r.ok;if(r.ok)S.plan='golden'}save();bar();grid();draw()}
+    else if(b.id=='cm'){if(await copy(`طلب تفعيل ${CFG.name}\nالمعرّف: ${ID}\nتم تحويل ${fnum(CFG.price)} ${CFG.cur} إلى ${CFG.pay}`))flash(b)}
+    else if(b.id=='ac'){const km=$('#km',el),v=$('#ky',el).value;km.textContent='جاري التحقق...';const r=await verifyKey(v,ID);if(r.ok){LS.setRaw('zx.key',v.trim().replace(/\s+/g,''));GOLD=true;S.plan='golden';save();bar();grid();draw('<div class=c><span class=ok>✅ تم تفعيل Golden G-v1 بشكل دائم على هذا الجهاز.</span></div>')}else km.innerHTML='<span class=bad>'+esc(r.msg)+'</span>'}
+    else if(b.id=='rv'){if(!confirm('إزالة التفعيل من هذا الجهاز؟ بتحتاج المفتاح لإعادة التفعيل.'))return;LS.del('zx.key');GOLD=false;if(S.plan=='golden')S.plan='low';save();bar();grid();draw()}
+  };
+  el.onchange=e=>{if(e.target.id=='mk'){S.mask=e.target.checked;save()}};
+  draw();
+});
+
+/* ====== حجب القيم الحساسة في الفحص الشامل ====== */
+const maskVal=(k,v)=>/^IP/.test(k)?maskIp(v).replace(/\b([0-9a-f]{1,4}):([0-9a-f]{1,4}):[0-9a-f:]+/i,'$1:$2:•'):/المدينة|المزود/.test(k)?'••••':/عناوين/.test(k)?maskIp(v):v;
+['network','webrtc'].forEach(k=>{const o=checks[k];checks[k]=async()=>{const r=await o();return maskOn()?r.map(x=>[x[0],maskVal(x[0],String(x[1])),...x.slice(2)]):r}});
+
+/* ====== الربط: القفل، الحدود، الشريط، الشبكة ====== */
+const bar=()=>{let b=$('#zxbar');if(!b){b=document.createElement('div');b.id='zxbar';b.className='c zb';$('#ap').insertBefore(b,$('#hm'));b.onclick=e=>{if(e.target.closest('#zxp'))openById('plans')}}
+  const s=S.plan,e=eff(),p=PL[e];let st;
+  if(e==='low'&&s!=='low')st=`<span class=warn>خلص حد ${PL[s].n} — شغّال على Low لحد التجديد</span>`;else if(p.lim===Infinity)st='بدون حد';else st=`المتبقي ${fnum(left(e))} من ${fnum(p.lim)} ${p.per=='w'?'هذا الأسبوع':'اليوم'}`;
+  b.innerHTML=`<div><b>${p.ico} ${esc(p.n)}</b><div class=m>${st}</div></div><button class=s id=zxp>⭐ الباقات</button>`};
+const gate=id=>{
+  if(GOLDT.has(id)){if(!GOLD)return{t:'lock'};if(left('golden')<=0)return{t:'limit'};bump('golden');return null}
+  if(LVLT.has(id)){const p=S.plan;if(p!=='low'&&(p!=='golden'||GOLD)&&left(p)>0)bump(p)}return null};
+const openTool=i=>{
+  const t=T[i];if(!t)return;const g=gate(t[0]);
+  cl.splice(0).forEach(f=>f());$('#hm').classList.add('h');const v=$('#v');v.innerHTML='<button class=s id=bk>← رجوع</button>';$('#bk').onclick=()=>{if(history.state&&history.state.zt)history.back();else{home();bar()}};try{history.pushState({zt:1},'')}catch(e){}
+  const el=document.createElement('div');el.className='c';v.append(el);bar();
+  if(g){el.innerHTML=g.t=='lock'?`<h2>🔒 ${t[2]}</h2><p>هذه الأداة ضمن باقة <b>Golden G-v1</b> فقط (${fnum(CFG.price)} ${esc(CFG.cur)} — تفعيل دائم).</p><button id=gp>👑 تفاصيل الباقة</button>`:`<h2>⏳ خلص حد اليوم</h2><p>وصلت حد Golden (250 عملية) ويتجدد مع بداية اليوم.</p><button id=gp class=s>⭐ الباقات</button>`;$('#gp',el).onclick=()=>openById('plans');return}
+  try{const r=t[3](el);if(r&&r.catch)r.catch(e=>{el.innerHTML=row('خطأ',e.message,'warn')})}catch(e){el.innerHTML=row('خطأ',e.message,'warn')}
+};
+const openById=id=>{const i=T.findIndex(x=>x[0]===id);if(i>=0)openTool(i)};
+const grid=()=>{
+  const rank=t=>t[0]=='plans'?0:GOLDT.has(t[0])?1:t[0]=='audit'?2:3;
+  $('#gd').innerHTML=T.map((t,i)=>[t,i]).sort((a,b)=>rank(a[0])-rank(b[0])||a[1]-b[1]).map(([t,i])=>`<button data-i=${i} class="${GOLDT.has(t[0])&&!GOLD?'lk':''}"><b>${t[1]}</b>${t[2]}${GOLDT.has(t[0])&&!GOLD?' 🔒':''}</button>`).join('');
+  const q=document.querySelector('input[type=search]');if(q)q.placeholder='🔎 ابحث في '+T.length+' أداة...';
+};
+$('#gd').onclick=e=>{const b=e.target.closest('[data-i]');if(b)openTool(+b.dataset.i)};
+grid();bar();
+addEventListener('popstate',()=>{if($('#hm').classList.contains('h')){home();bar()}});
+
+/* إعادة التحقق من مفتاح Golden المحفوظ عند كل تحميل */
+(async()=>{const k=LS.raw('zx.key');if(!k)return;const r=await verifyKey(k,ID);GOLD=r.ok;if(!r.ok&&!r.transient&&!r.keep){LS.del('zx.key');if(S.plan=='golden'){S.plan='low';save()}}bar();grid()})();
+})();
+</script></body></html>
